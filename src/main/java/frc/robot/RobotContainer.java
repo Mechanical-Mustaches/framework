@@ -24,9 +24,7 @@ import frc.robot.commands.swerve.SetSwerveDrive;
 import frc.robot.simulation.FieldSim;
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FloorIntake;
-import frc.robot.commands.ForwardFloorIntakeCommand;
-import frc.robot.commands.ReverseFloorIntakeCommand;
+
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -50,7 +48,6 @@ public class RobotContainer {
   private XboxController m_coDriverController = new XboxController(OIConstants.kCoDriverControllerPort);
 
   final GamepadButtons driver = new GamepadButtons(m_coDriverController, true);
-  FloorIntake floorIntake = new FloorIntake();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -82,57 +79,22 @@ public class RobotContainer {
             () -> leftJoystick.getRawAxis(0),
             () -> rightJoystick.getRawAxis(4)));
 
-  //  driver.leftTrigger.whileHeld(new JogTurnModule(
-   //     m_robotDrive,
-   //     () -> -m_coDriverController.getRawAxis(1),
-   //     () -> m_coDriverController.getRawAxis(0),
-   //     () -> m_coDriverController.getRawAxis(2),
-   //     () -> m_coDriverController.getRawAxis(3)));
 
-    // individual modules
- //  driver.leftBumper.whileHeld(new JogDriveModule(
-      //  m_robotDrive,
-   //     () -> -m_coDriverController.getRawAxis(1),
-     //   () -> m_coDriverController.getRawAxis(0),
-       // () -> m_coDriverController.getRawAxis(2),
-       // () -> m_coDriverController.getRawAxis(3),
-       // true));
-
-    // all modules
-   // driver.rightBumper.whileHeld(new JogDriveModule(
-   //     m_robotDrive,
-    //    () -> -m_coDriverController.getRawAxis(1),
-     //   () -> m_coDriverController.getRawAxis(0),
-      //  () -> m_coDriverController.getRawAxis(2),
-       // () -> m_coDriverController.getRawAxis(3),
-       // false));
 
 
         JoystickButton button_8 = new JoystickButton(leftJoystick,8);
         JoystickButton button_7 = new JoystickButton(leftJoystick, 7);
         JoystickButton X_button = new JoystickButton(leftJoystick, 4);       
 
-        X_button.onTrue(new ForwardFloorIntakeCommand(floorIntake));
-        X_button.onFalse(new ReverseFloorIntakeCommand(floorIntake));
+      
         button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
-        //X_button.onTrue(new FloorIntake(floorIntake.munch()));
-    // position turn modules individually
-    // driver.X_button.whenPressed(new PositionTurnModule(m_robotDrive,
-    // ModulePosition.FRONT_LEFT));
-    // driver.A_button.whenPressed(new PositionTurnModule(m_robotDrive,
-    // ModulePosition.FRONT_RIGHT));
-    // driver.B_button.whenPressed(new PositionTurnModule(m_robotDrive,
-    // ModulePosition.BACK_LEFT));
-    // driver.Y_button.whenPressed(new PositionTurnModule(m_robotDrive,
-    // ModulePosition.BACK_RIGHT));
+        
 
   }
 
   private void initializeAutoChooser() {
     m_autoChooser.setDefaultOption("Do Nothing", new WaitCommand(0));
-    // m_autoChooser.addOption("Drive Forward", new DriveForward(m_robotDrive));
-    // m_autoChooser.addOption("5 Ball Auto", new FiveBallAuto(m_robotDrive));
-
+   
     SmartDashboard.putData("Auto Selector", m_autoChooser);
 
   }
