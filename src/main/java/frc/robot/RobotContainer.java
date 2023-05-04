@@ -25,6 +25,11 @@ import frc.robot.simulation.FieldSim;
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
 
+/*
+ * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
+ * ledlights, compressor, swervedrive, tankdrive, shooter, linebreak sensors, color sensors,
+ * limit switches, flight sensor, gunner, driver
+ */
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
