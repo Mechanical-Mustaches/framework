@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
-// Code
 public class Elevator extends SubsystemBase {
     // Instance Variable
     private CANSparkMax elvtrMotor1 = new CANSparkMax(99, MotorType.kBrushless);

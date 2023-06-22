@@ -24,11 +24,14 @@ import frc.robot.commands.swerve.SetSwerveDrive;
 import frc.robot.simulation.FieldSim;
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.FloorIntake;
+import frc.robot.subsystems.TankDrive;
 
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
  * ledlights, compressor, swervedrive, tankdrive, shooter, linebreak sensors, color sensors,
- * limit switches, flight sensor, gunner, driver
+ * limit switches, flight sensor, gunner, driver, servo
  */
 
 /*
@@ -40,6 +43,10 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
   // The robot's subsystems
   final DriveSubsystem m_robotDrive = new DriveSubsystem();
+
+  public Elevator elevator = new Elevator();
+  public FloorIntake floorIntake = new FloorIntake();
+  public TankDrive tankDrive = new TankDrive(0.5);
 
   public final FieldSim m_fieldSim = new FieldSim(m_robotDrive);
 

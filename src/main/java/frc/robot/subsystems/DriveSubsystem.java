@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import edu.wpi.first.hal.SimDouble;
 import edu.wpi.first.hal.simulation.SimDeviceDataJNI;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
@@ -24,8 +23,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +33,10 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.utils.ModuleMap;
 import frc.robot.utils.ShuffleboardContent;
+// import edu.wpi.first.networktables.NetworkTableEntry;
+// import edu.wpi.first.networktables.NetworkTableInstance;
+// import edu.wpi.first.math.VecBuilder;
+
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -43,45 +44,45 @@ public class DriveSubsystem extends SubsystemBase {
 
   public final HashMap<ModulePosition, SwerveModuleSparkMax> m_swerveModules = new HashMap<>(
 
-      Map.of(
+    Map.of(
 
-          ModulePosition.FRONT_LEFT,
-          new SwerveModuleSparkMax(ModulePosition.FRONT_LEFT,
-              CanConstants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
-              CanConstants.FRONT_LEFT_MODULE_STEER_MOTOR,
-              CanConstants.FRONT_LEFT_MODULE_STEER_CANCODER,
-              DriveConstants.kFrontLeftDriveMotorReversed,
-              DriveConstants.kFrontLeftTurningMotorReversed,
-              CanConstants.FRONT_LEFT_MODULE_STEER_OFFSET),
+      ModulePosition.FRONT_LEFT,
+      new SwerveModuleSparkMax(ModulePosition.FRONT_LEFT,
+        CanConstants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
+        CanConstants.FRONT_LEFT_MODULE_STEER_MOTOR,
+        CanConstants.FRONT_LEFT_MODULE_STEER_CANCODER,
+        DriveConstants.kFrontLeftDriveMotorReversed,
+        DriveConstants.kFrontLeftTurningMotorReversed,
+        CanConstants.FRONT_LEFT_MODULE_STEER_OFFSET),
 
-          ModulePosition.FRONT_RIGHT,
-          new SwerveModuleSparkMax(
-              ModulePosition.FRONT_RIGHT,
-              CanConstants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
-              CanConstants.FRONT_RIGHT_MODULE_STEER_MOTOR,
-              CanConstants.FRONT_RIGHT_MODULE_STEER_CANCODER,
-              DriveConstants.kFrontRightDriveMotorReversed,
-              DriveConstants.kFrontRightTurningMotorReversed,
-              CanConstants.FRONT_RIGHT_MODULE_STEER_OFFSET),
+      ModulePosition.FRONT_RIGHT,
+      new SwerveModuleSparkMax(
+        ModulePosition.FRONT_RIGHT,
+        CanConstants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
+        CanConstants.FRONT_RIGHT_MODULE_STEER_MOTOR,
+        CanConstants.FRONT_RIGHT_MODULE_STEER_CANCODER,
+        DriveConstants.kFrontRightDriveMotorReversed,
+        DriveConstants.kFrontRightTurningMotorReversed,
+        CanConstants.FRONT_RIGHT_MODULE_STEER_OFFSET),
 
-          ModulePosition.BACK_LEFT,
-          new SwerveModuleSparkMax(ModulePosition.BACK_LEFT,
-              CanConstants.BACK_LEFT_MODULE_DRIVE_MOTOR,
-              CanConstants.BACK_LEFT_MODULE_STEER_MOTOR,
-              CanConstants.BACK_LEFT_MODULE_STEER_CANCODER,
-              DriveConstants.kBackLeftDriveMotorReversed,
-              DriveConstants.kBackLeftTurningMotorReversed,
-              CanConstants.BACK_LEFT_MODULE_STEER_OFFSET),
+      ModulePosition.BACK_LEFT,
+      new SwerveModuleSparkMax(ModulePosition.BACK_LEFT,
+          CanConstants.BACK_LEFT_MODULE_DRIVE_MOTOR,
+          CanConstants.BACK_LEFT_MODULE_STEER_MOTOR,
+          CanConstants.BACK_LEFT_MODULE_STEER_CANCODER,
+          DriveConstants.kBackLeftDriveMotorReversed,
+          DriveConstants.kBackLeftTurningMotorReversed,
+          CanConstants.BACK_LEFT_MODULE_STEER_OFFSET),
 
+      ModulePosition.BACK_RIGHT,
+      new SwerveModuleSparkMax(
           ModulePosition.BACK_RIGHT,
-          new SwerveModuleSparkMax(
-              ModulePosition.BACK_RIGHT,
-              CanConstants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
-              CanConstants.BACK_RIGHT_MODULE_STEER_MOTOR,
-              CanConstants.BACK_RIGHT_MODULE_STEER_CANCODER,
-              DriveConstants.kBackRightDriveMotorReversed,
-              DriveConstants.kBackRightTurningMotorReversed,
-              CanConstants.BACK_RIGHT_MODULE_STEER_OFFSET)));
+          CanConstants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
+          CanConstants.BACK_RIGHT_MODULE_STEER_MOTOR,
+          CanConstants.BACK_RIGHT_MODULE_STEER_CANCODER,
+          DriveConstants.kBackRightDriveMotorReversed,
+          DriveConstants.kBackRightTurningMotorReversed,
+          CanConstants.BACK_RIGHT_MODULE_STEER_OFFSET)));
   // The gyro sensor
 
   private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
@@ -89,9 +90,9 @@ public class DriveSubsystem extends SubsystemBase {
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
   private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
   private ProfiledPIDController m_turnController = new ProfiledPIDController(
-      DriveConstants.kP_Theta, 0,
-      DriveConstants.kD_Theta,
-      Constants.TrapezoidConstants.kThetaControllerConstraints);
+    DriveConstants.kP_Theta, 0,
+    DriveConstants.kD_Theta,
+    Constants.TrapezoidConstants.kThetaControllerConstraints);
 
   private final SwerveDrivePoseEstimator m_odometry;
   SwerveModulePosition[] mpos;
