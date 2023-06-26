@@ -14,17 +14,25 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.ToggleFieldOriented;
 // import frc.robot.commands.auto.DriveForward;
 // import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.swerve.JogDriveModule;
 import frc.robot.commands.swerve.JogTurnModule;
 import frc.robot.commands.swerve.PositionTurnModule;
 import frc.robot.commands.swerve.SetSwerveDrive;
+import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
+//Import Commands here
+
+
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
-
+import frc.robot.subsystems.Conveyor;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ArmIntake;
+import frc.robot.subsystems.FloorIntake;
+import frc.robot.subsystems.Turret;
+import frc.robot.subsystems.Compressor;
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
  * ledlights, compressor, swervedrive, tankdrive, shooter, linebreak sensors, color sensors,
@@ -45,14 +53,28 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
+  /*
+   * This is where agent names and abilities are stored
+   * You can add different speeds and autonomous routines into each
+   * section. 
+   */
+  Conveyor conveyor = new Conveyor("conner", 0.4);
+  Shooter shooter = new Shooter("sunny", 0.4);
+  ArmIntake armIntake = new ArmIntake("alexis", 0.4);
+  FloorIntake floorIntake = new FloorIntake("fennekin", 0.4);
+  Turret turret = new Turret("trevenant"); 
+  Compressor compressor = new Compressor("charzard");
+  
   // The driver's controller
 
   static Joystick leftJoystick = new Joystick(OIConstants.kDriverControllerPort);
   static Joystick rightJoystick = new Joystick(OIConstants.kDriverControllerPort);
 
+  private XboxController m_DriverController = new XboxController(OIConstants.kDriverControllerPort);
   private XboxController m_coDriverController = new XboxController(OIConstants.kCoDriverControllerPort);
 
-  final GamepadButtons driver = new GamepadButtons(m_coDriverController, true);
+  final GamepadButtons driver = new GamepadButtons(m_DriverController, true);
+  final GamepadButtons gunner = new GamepadButtons(m_coDriverController, true);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -85,15 +107,19 @@ public class RobotContainer {
             () -> rightJoystick.getRawAxis(4)));
 
 
-
+      //Controller Buttons
+    
 
         JoystickButton button_8 = new JoystickButton(leftJoystick,8);
         JoystickButton button_7 = new JoystickButton(leftJoystick, 7);
         JoystickButton X_button = new JoystickButton(leftJoystick, 4);       
 
-      
+      // Driver Button Commands
         button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
+
+      // Gunner Button Commands
         
+       
 
   }
 

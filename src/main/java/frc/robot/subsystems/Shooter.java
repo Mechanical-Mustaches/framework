@@ -1,16 +1,19 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class Conveyor extends SubsystemBase {
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Shooter extends SubsystemBase{
     //Instance Variables
     private String name;
-    private CANSparkMax motor = new CANSparkMax(99, MotorType.kBrushless);
+    private CANSparkMax motor = new CANSparkMax(98, MotorType.kBrushless);
     private Double speed;
+    
 
-    //Constructor
-    public Conveyor(String name, Double speed){
+    //Constructor 
+    public Shooter(String name, Double speed){
         this.name = name;
         this.speed = speed;
     }
@@ -25,6 +28,16 @@ public class Conveyor extends SubsystemBase {
         motor.set(speed);
     }
 
-    
+    public void Reverse(){
+        motor.set(-speed);
+    }
 
+    public void Stop(){
+        motor.set(0);
+    }
+
+
+
+   
+    
 }
