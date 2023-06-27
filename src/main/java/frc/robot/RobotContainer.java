@@ -24,15 +24,6 @@ import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
 //Import Commands here
 
-
-//Import Subsystems here
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ArmIntake;
-import frc.robot.subsystems.FloorIntake;
-import frc.robot.subsystems.Turret;
-import frc.robot.subsystems.Compressor;
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
  * ledlights, compressor, swervedrive, tankdrive, shooter, linebreak sensors, color sensors,
@@ -47,9 +38,9 @@ import frc.robot.subsystems.Compressor;
  */
 public class RobotContainer {
   // The robot's subsystems
-  final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  //final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-  public final FieldSim m_fieldSim = new FieldSim(m_robotDrive);
+ // public final FieldSim m_fieldSim = new FieldSim(m_robotDrive);
 
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
@@ -58,12 +49,7 @@ public class RobotContainer {
    * You can add different speeds and autonomous routines into each
    * section. 
    */
-  Conveyor conveyor = new Conveyor("conner", 0.4);
-  Shooter shooter = new Shooter("sunny", 0.4);
-  ArmIntake armIntake = new ArmIntake("alexis", 0.4);
-  FloorIntake floorIntake = new FloorIntake("fennekin", 0.4);
-  Turret turret = new Turret("trevenant"); 
-  Compressor compressor = new Compressor("charzard");
+ 
   
   // The driver's controller
 
@@ -86,7 +72,7 @@ public class RobotContainer {
     SmartDashboard.putData("Scheduler", CommandScheduler.getInstance());
     // Configure the button bindings
 
-    m_fieldSim.initSim();
+ //   m_fieldSim.initSim();
     initializeAutoChooser();
     // sc.showAll();
     // Configure default commands
@@ -99,12 +85,12 @@ public class RobotContainer {
         // () -> -m_coDriverController.getRawAxis(1),
          //() -> -m_coDriverController.getRawAxis(0),
          //() -> -m_coDriverController.getRawAxis(4)));
-        m_robotDrive.setDefaultCommand(
-        new SetSwerveDrive(
-            m_robotDrive,
-            () -> leftJoystick.getRawAxis(1),
-            () -> leftJoystick.getRawAxis(0),
-            () -> rightJoystick.getRawAxis(4)));
+        // m_robotDrive.setDefaultCommand(
+        // new SetSwerveDrive(
+        //     m_robotDrive,
+        //     () -> leftJoystick.getRawAxis(1),
+        //     () -> leftJoystick.getRawAxis(0),
+        //     () -> rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons
@@ -115,7 +101,7 @@ public class RobotContainer {
         JoystickButton X_button = new JoystickButton(leftJoystick, 4);       
 
       // Driver Button Commands
-        button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
+      //  button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
 
       // Gunner Button Commands
         
@@ -130,14 +116,14 @@ public class RobotContainer {
 
   }
 
-  public void simulationPeriodic() {
-    m_fieldSim.periodic();
-    periodic();
-  }
+  // public void simulationPeriodic() {
+  //   m_fieldSim.periodic();
+  //   periodic();
+  // }
 
-  public void periodic() {
-    m_fieldSim.periodic();
-  }
+  // public void periodic() {
+  //   m_fieldSim.periodic();
+  // }
 
   public double getThrottle() {
     return -leftJoystick.getThrottle();
