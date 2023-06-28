@@ -25,6 +25,11 @@ import frc.robot.utils.ModuleMap;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
+    public static final double kDriveM
+
+
+
 
   public static final class CanConstants {
 

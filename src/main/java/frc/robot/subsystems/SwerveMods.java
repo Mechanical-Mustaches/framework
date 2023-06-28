@@ -22,6 +22,7 @@ public class SwerveMods {
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
 
+    //Constructor
     public SwerveMods(int driveMotorID, int turnMotorID, boolean driveMotorReversed, 
         boolean turningMotorReversed, int absoluteEncoderID, double absoluteEncoderOffset,
         boolean absoluteEncoderReversed){
@@ -36,7 +37,18 @@ public class SwerveMods {
             driveMotor.setInverted(driveMotorReversed);
             turnMotor.setInverted(turningMotorReversed);
 
-            driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
+            driveEncoder = driveMotor.getEncoder();
+            turnEncoder = turnMotor.getEncoder();
+
+            //Coders Converstion Constants
+            driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveMetersPerEncRev);
+            driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncRPMperMPS);
+            turnEncoder.setPositionConversionFactor(ModuleConstants.kTurningDegreesPerEncRev);
+            //turnEncoder.setVelocityConversionFactor(ModuleConstants.kTurn)
+
+            //Initilized PID Controller 
+            turnPIDController = new PIDController(ModuleConstants.kPModuleTurnController, 0, 0);
+
 
     }
 
