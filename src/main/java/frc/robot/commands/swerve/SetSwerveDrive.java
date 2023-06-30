@@ -1,4 +1,4 @@
-package frc.robot.commands.swerve;
+package frc.robot.commands.Swerve;
 
 import java.util.function.DoubleSupplier;
 

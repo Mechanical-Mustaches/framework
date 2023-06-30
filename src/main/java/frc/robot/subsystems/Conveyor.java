@@ -25,6 +25,14 @@ public class Conveyor extends SubsystemBase {
         motor.set(speed);
     }
 
+    public void Reverse(){
+        motor.set(-speed);
+    }
+
+    public void Stop(){
+        motor.set(0);
+    }
+
     
 
 }

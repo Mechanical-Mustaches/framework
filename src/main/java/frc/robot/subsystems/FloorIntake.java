@@ -31,7 +31,7 @@ public class FloorIntake extends SubsystemBase{
         motor.set(-speed);
     }
 
-    public void Off(){
+    public void Stop(){
         motor.set(0);
     }
 

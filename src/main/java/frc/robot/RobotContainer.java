@@ -14,25 +14,33 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.Constants.OIConstants;
-// import frc.robot.commands.auto.DriveForward;
-// import frc.robot.commands.auto.FiveBallAuto;
-import frc.robot.commands.swerve.JogDriveModule;
-import frc.robot.commands.swerve.JogTurnModule;
-import frc.robot.commands.swerve.PositionTurnModule;
-import frc.robot.commands.swerve.SetSwerveDrive;
-import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
-//Import Commands here
 
+//Import Commands here
+import frc.robot.commands.ArmIntake.*;
+import frc.robot.commands.Compressor.*;
+import frc.robot.commands.Conveyor.*;
+import frc.robot.commands.Elevator.*;
+import frc.robot.commands.FloorIntake.*;
+import frc.robot.commands.Shooter.*;
+import frc.robot.commands.Swerve.JogDriveModule;
+import frc.robot.commands.Swerve.JogTurnModule;
+import frc.robot.commands.Swerve.PositionTurnModule;
+import frc.robot.commands.Swerve.SetSwerveDrive;
+import frc.robot.commands.Swerve.ToggleFieldOriented;
+import frc.robot.commands.TankDrive.*;
+import frc.robot.commands.Turret.*;
 
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ArmIntake;
 import frc.robot.subsystems.FloorIntake;
 import frc.robot.subsystems.Turret;
 import frc.robot.subsystems.Compressor;
+import frc.robot.subsystems.TankDrive;
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
  * ledlights, compressor, swervedrive, tankdrive, shooter, linebreak sensors, color sensors,
@@ -58,15 +66,17 @@ public class RobotContainer {
    * You can add different speeds and autonomous routines into each
    * section. 
    */
-  Conveyor conveyor = new Conveyor("conner", 0.4);
-  Shooter shooter = new Shooter("sunny", 0.4);
   ArmIntake armIntake = new ArmIntake("alexis", 0.4);
-  FloorIntake floorIntake = new FloorIntake("fennekin", 0.4);
-  Turret turret = new Turret("trevenant"); 
   Compressor compressor = new Compressor("charzard");
+  Conveyor conveyor = new Conveyor("conner", 0.4);
+  Elevator elevator = new Elevator("elle");
+  FloorIntake floorIntake = new FloorIntake("frank", 0.4);
+  Shooter shooter = new Shooter("sunny", 0.4);
+  TankDrive tankDrive = new TankDrive("wally", 0.4);
+  Turret turret = new Turret("todd"); 
   
-  // The driver's controller
-
+  
+  // Driver & Gunner controllers
   static Joystick leftJoystick = new Joystick(OIConstants.kDriverControllerPort);
   static Joystick rightJoystick = new Joystick(OIConstants.kDriverControllerPort);
 
@@ -108,19 +118,39 @@ public class RobotContainer {
 
 
       //Controller Buttons
-    
+        //Driver 
+        JoystickButton d_AButton = new JoystickButton(leftJoystick, 1);
+        JoystickButton d_BButton = new JoystickButton(leftJoystick, 2);
+        JoystickButton d_XButton = new JoystickButton(leftJoystick,3);
+        JoystickButton d_YButton = new JoystickButton(leftJoystick, 4);
+        JoystickButton d_RBumper = new JoystickButton(leftJoystick, 5);
+        JoystickButton d_LBumper = new JoystickButton(leftJoystick, 6);
+        JoystickButton d_TFrames = new JoystickButton(leftJoystick, 7);
+        JoystickButton d_TLines = new JoystickButton(leftJoystick,8);
 
-        JoystickButton button_8 = new JoystickButton(leftJoystick,8);
-        JoystickButton button_7 = new JoystickButton(leftJoystick, 7);
-        JoystickButton X_button = new JoystickButton(leftJoystick, 4);       
+        //Gunner
+        JoystickButton g_AButton = new JoystickButton(leftJoystick, 1);
+        JoystickButton g_BButton = new JoystickButton(leftJoystick, 2);
+        JoystickButton g_XButton = new JoystickButton(leftJoystick, 3);
+        JoystickButton g_YButton = new JoystickButton(leftJoystick, 4);
+        JoystickButton g_RBumper = new JoystickButton(leftJoystick, 5);
+        JoystickButton g_LBumper = new JoystickButton(leftJoystick, 6);
+        JoystickButton g_TFrames = new JoystickButton(leftJoystick, 7);
+        JoystickButton g_TLines = new JoystickButton(leftJoystick, 8);
+
+         
 
       // Driver Button Commands
-        button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
+        d_TLines.onTrue(new ToggleFieldOriented(m_robotDrive));
 
       // Gunner Button Commands
         
        
 
+  }
+
+  public void initialize(){
+    turret.initalize();
   }
 
   private void initializeAutoChooser() {

@@ -9,7 +9,7 @@ public class ArmIntake extends SubsystemBase{
     private String name;
     private CANSparkMax motor = new CANSparkMax(97, MotorType.kBrushless);
     private double speed;
-    
+     
     //Constructor
     public ArmIntake(String name, Double speed){
         this.name = name;
@@ -26,7 +26,12 @@ public class ArmIntake extends SubsystemBase{
         motor.set(speed);
     }
 
-    public void Backward(){
+    public void Reverse(){
         motor.set(-speed);
     }
+
+    public void Stop(){
+        motor.set(0);
+    }
+
 }

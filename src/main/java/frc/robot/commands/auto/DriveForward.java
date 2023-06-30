@@ -1,3 +1,4 @@
+package frc.robot.commands.Auto;
  /*
 package frc.robot.commands.auto;
 
