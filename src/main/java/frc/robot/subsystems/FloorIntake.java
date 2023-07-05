@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -10,6 +11,7 @@ public class FloorIntake extends SubsystemBase{
     private String name;
     private Double speed;
     private CANSparkMax motor = new CANSparkMax(95, MotorType.kBrushless);
+    RelativeEncoder encoder;
     
     //Constructor
     public FloorIntake(String name, Double speed){

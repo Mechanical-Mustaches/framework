@@ -9,7 +9,7 @@ public class Compressor extends Subsystembase{
     private DoubleSolenoid firstSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
     private DoubleSolenoid secondSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 3, 4);
     private String name;
-
+    
     //Constructor 
     public Compressor(String name){
         this.name = name;

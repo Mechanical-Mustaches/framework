@@ -5,8 +5,9 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class TankDrive extends Subsystembase{
+public class TankDrive extends SubsystemBase{
     //Instance Variables
     private String name;
     private double max_speed;
