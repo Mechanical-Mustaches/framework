@@ -3,8 +3,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Compressor extends Subsystembase{
+public class Compressor extends SubsystemBase{
     //Instance Variables
     private DoubleSolenoid firstSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
     private DoubleSolenoid secondSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 3, 4);

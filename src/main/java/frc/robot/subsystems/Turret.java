@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase{
     private String name;
-    private CANSparkMax motor = new CANSparkMax(96, MotorType.kBrushless);
+    private CANSparkMax motor = new CANSparkMax(89, MotorType.kBrushless);
     RelativeEncoder encoder;
     private double speed = 0.4;
 
