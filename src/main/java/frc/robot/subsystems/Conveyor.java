@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Conveyor extends SubsystemBase {
     //Instance Variables
     private String name;
-    private CANSparkMax motor = new CANSparkMax(98, MotorType.kBrushless);
+   // private CANSparkMax motor = new CANSparkMax(98, MotorType.kBrushless);
     private Double speed;
     RelativeEncoder encoder;
 
@@ -24,15 +24,15 @@ public class Conveyor extends SubsystemBase {
 
     //Movement
     public void Forward(){
-        motor.set(speed);
+     //   motor.set(speed);
     }
 
     public void Reverse(){
-        motor.set(-speed);
+     //   motor.set(-speed);
     }
 
     public void Stop(){
-        motor.set(0);
+      //  motor.set(0);
     }
 
     

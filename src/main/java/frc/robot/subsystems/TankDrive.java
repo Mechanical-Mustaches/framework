@@ -11,16 +11,16 @@ public class TankDrive extends SubsystemBase{
     //Instance Variables
     private String name;
     private double max_speed;
-    private double max_turn = .7;
-    private CANSparkMax m_FrontRight = new CANSparkMax(93, MotorType.kBrushless);
-    private CANSparkMax m_BackRight = new CANSparkMax(92, MotorType.kBrushless);
-    private CANSparkMax m_FrontLeft = new CANSparkMax(91, MotorType.kBrushless);
-    private CANSparkMax m_BackLeft = new CANSparkMax(90, MotorType.kBrushless);
+    // private double max_turn = .7;
+    // private CANSparkMax m_FrontRight = new CANSparkMax(93, MotorType.kBrushless);
+    // private CANSparkMax m_BackRight = new CANSparkMax(92, MotorType.kBrushless);
+    // private CANSparkMax m_FrontLeft = new CANSparkMax(91, MotorType.kBrushless);
+    // private CANSparkMax m_BackLeft = new CANSparkMax(90, MotorType.kBrushless);
 
-    private MotorControllerGroup rodger = new MotorControllerGroup(m_FrontRight, m_BackRight);
-    private MotorControllerGroup louie = new MotorControllerGroup(m_FrontLeft, m_BackLeft);
+    // private MotorControllerGroup rodger = new MotorControllerGroup(m_FrontRight, m_BackRight);
+    // private MotorControllerGroup louie = new MotorControllerGroup(m_FrontLeft, m_BackLeft);
 
-    private DifferentialDrive drivechain = new DifferentialDrive(louie, rodger);
+    // private DifferentialDrive drivechain = new DifferentialDrive(louie, rodger);
 
     //Constructor
     public TankDrive(String name, Double max_speed){

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase{
     private String name;
-    private CANSparkMax motor = new CANSparkMax(89, MotorType.kBrushless);
+  //  private CANSparkMax motor = new CANSparkMax(89, MotorType.kBrushless);
     RelativeEncoder encoder;
     private double speed = 0.4;
 
@@ -29,7 +29,7 @@ public class Turret extends SubsystemBase{
      */
 
      public void moveRight(){
-        motor.set(speed);
+   //     motor.set(speed);
      }
 
      public boolean isMovingRight(){
@@ -42,7 +42,7 @@ public class Turret extends SubsystemBase{
      /************************************/
 
      public void moveLeft(){
-        motor.set(-speed);
+    ///    motor.set(-speed);
      }
 
      public boolean isMovingLeft(){
@@ -55,7 +55,7 @@ public class Turret extends SubsystemBase{
     /************************************/
 
      public void hardStop(){
-        motor.set(0);
+     //   motor.set(0);
      }
 
     //Might need a isStopped boolean class

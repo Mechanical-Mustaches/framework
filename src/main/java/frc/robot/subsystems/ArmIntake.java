@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ArmIntake extends SubsystemBase{
     private String name;
-    private CANSparkMax motor = new CANSparkMax(99, MotorType.kBrushless);
+   // private CANSparkMax motor = new CANSparkMax(99, MotorType.kBrushless);
     private double speed;
     RelativeEncoder encoder;
      
@@ -25,15 +25,15 @@ public class ArmIntake extends SubsystemBase{
 
     //Movement
     public void Forward(){
-        motor.set(speed);
+       // motor.set(speed);
     }
 
     public void Reverse(){
-        motor.set(-speed);
+       // motor.set(-speed);
     }
 
     public void Stop(){
-        motor.set(0);
+     //   motor.set(0);
     }
 
 }

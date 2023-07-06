@@ -10,7 +10,7 @@ public class FloorIntake extends SubsystemBase{
    //Instance Variables
     private String name;
     private Double speed;
-    private CANSparkMax motor = new CANSparkMax(95, MotorType.kBrushless);
+   // private CANSparkMax motor = new CANSparkMax(95, MotorType.kBrushless);
     RelativeEncoder encoder;
     
     //Constructor
@@ -26,15 +26,15 @@ public class FloorIntake extends SubsystemBase{
 
     //Movement
     public void Forward(){
-        motor.set(speed);
+     //   motor.set(speed);
     }
 
     public void Reverse(){
-        motor.set(-speed);
+    //    motor.set(-speed);
     }
 
     public void Stop(){
-        motor.set(0);
+    //    motor.set(0);
     }
 
 
