@@ -23,14 +23,13 @@ import frc.robot.commands.Conveyor.*;
 import frc.robot.commands.Elevator.*;
 import frc.robot.commands.FloorIntake.*;
 import frc.robot.commands.Shooter.*;
-import frc.robot.commands.Swerve.JogDriveModule;
-import frc.robot.commands.Swerve.JogTurnModule;
-import frc.robot.commands.Swerve.PositionTurnModule;
-import frc.robot.commands.Swerve.SetSwerveDrive;
-import frc.robot.commands.Swerve.ToggleFieldOriented;
 //import frc.robot.commands.TankDrive.*;
 import frc.robot.commands.Turret.*;
-
+import frc.robot.commands.swerve.JogDriveModule;
+import frc.robot.commands.swerve.JogTurnModule;
+import frc.robot.commands.swerve.PositionTurnModule;
+import frc.robot.commands.swerve.SetSwerveDrive;
+import frc.robot.commands.swerve.ToggleFieldOriented;
 //Import Subsystems here
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Elevator;
@@ -79,11 +78,7 @@ public class RobotContainer {
   // Driver & Gunner controllers
   static Joystick leftJoystick = new Joystick(OIConstants.kDriverControllerPort);
   static Joystick rightJoystick = new Joystick(OIConstants.kDriverControllerPort);
-
-  
-
   private XboxController m_DriverController = new XboxController(OIConstants.kDriverControllerPort);
-
   final GamepadButtons driver = new GamepadButtons(m_DriverController, true);
 
   /**
@@ -112,9 +107,9 @@ public class RobotContainer {
         m_robotDrive.setDefaultCommand(
         new SetSwerveDrive(
             m_robotDrive,
-            () -> -leftJoystick.getRawAxis(1),
-            () -> -leftJoystick.getRawAxis(0),
-            () -> -rightJoystick.getRawAxis(4)));
+            () -> leftJoystick.getRawAxis(1),
+            () -> leftJoystick.getRawAxis(0),
+            () -> rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons

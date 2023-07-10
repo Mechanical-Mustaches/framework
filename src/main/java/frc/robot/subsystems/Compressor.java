@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Compressor extends SubsystemBase{
     //Instance Variables
-    private DoubleSolenoid firstSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
-    private DoubleSolenoid secondSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 3, 4);
+    // private DoubleSolenoid firstSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+    // private DoubleSolenoid secondSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH, 3, 4);
     private String name;
     
     //Constructor 
@@ -23,18 +23,18 @@ public class Compressor extends SubsystemBase{
 
     //Movement
     public void Forward(){
-        firstSolenoid.set(Value.kForward);
-        secondSolenoid.set(Value.kForward);
+        // firstSolenoid.set(Value.kForward);
+        // secondSolenoid.set(Value.kForward);
     }
 
     public void Backward(){
-        firstSolenoid.set(Value.kReverse);
-        secondSolenoid.set(Value.kReverse);
+        // firstSolenoid.set(Value.kReverse);
+        // secondSolenoid.set(Value.kReverse);
     }
 
     public void Off(){
-        firstSolenoid.set(Value.kOff);
-        secondSolenoid.set(Value.kOff);
+        // firstSolenoid.set(Value.kOff);
+        // secondSolenoid.set(Value.kOff);
     }
 
 }
