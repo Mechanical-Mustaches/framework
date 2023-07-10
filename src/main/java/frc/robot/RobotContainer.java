@@ -77,18 +77,14 @@ public class RobotContainer {
   
    
   // Driver & Gunner controllers
-  static Joystick d_leftJoystick = new Joystick(OIConstants.kDriverControllerPort);
-  static Joystick d_rightJoystick = new Joystick(OIConstants.kDriverControllerPort);
+  static Joystick leftJoystick = new Joystick(OIConstants.kDriverControllerPort);
+  static Joystick rightJoystick = new Joystick(OIConstants.kDriverControllerPort);
 
-  static Joystick g_leftJoystick = new Joystick(OIConstants.kCoDriverControllerPort);
-  static Joystick g_rightJoystick = new Joystick(OIConstants.kCoDriverControllerPort);
-
+  
 
   private XboxController m_DriverController = new XboxController(OIConstants.kDriverControllerPort);
-  private XboxController m_coDriverController = new XboxController(OIConstants.kCoDriverControllerPort);
 
   final GamepadButtons driver = new GamepadButtons(m_DriverController, true);
-  final GamepadButtons gunner = new GamepadButtons(m_coDriverController, true);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -116,36 +112,36 @@ public class RobotContainer {
         m_robotDrive.setDefaultCommand(
         new SetSwerveDrive(
             m_robotDrive,
-            () -> -d_leftJoystick.getRawAxis(1),
-            () -> -d_leftJoystick.getRawAxis(0),
-            () -> -d_rightJoystick.getRawAxis(4)));
+            () -> -leftJoystick.getRawAxis(1),
+            () -> -leftJoystick.getRawAxis(0),
+            () -> -rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons
         //Driver 
-        JoystickButton d_AButton = new JoystickButton(d_leftJoystick, 1);
-        JoystickButton d_BButton = new JoystickButton(d_leftJoystick, 2);
-        JoystickButton d_XButton = new JoystickButton(d_leftJoystick,3);
-        JoystickButton d_YButton = new JoystickButton(d_leftJoystick, 4);
-        JoystickButton d_RBumper = new JoystickButton(d_leftJoystick, 5);
-        JoystickButton d_LBumper = new JoystickButton(d_leftJoystick, 6);
-        JoystickButton d_TFrames = new JoystickButton(d_leftJoystick, 7);
-        JoystickButton d_TLines = new JoystickButton(d_leftJoystick,8);
+        // JoystickButton d_AButton = new JoystickButton(d_leftJoystick, 1);
+        // JoystickButton d_BButton = new JoystickButton(d_leftJoystick, 2);
+        // JoystickButton d_XButton = new JoystickButton(d_leftJoystick,3);
+        // JoystickButton d_YButton = new JoystickButton(d_leftJoystick, 4);
+        // JoystickButton d_RBumper = new JoystickButton(d_leftJoystick, 5);
+        // JoystickButton d_LBumper = new JoystickButton(d_leftJoystick, 6);
+        // JoystickButton d_TFrames = new JoystickButton(d_leftJoystick, 7);
+        JoystickButton TLines = new JoystickButton(leftJoystick,8);
 
-        //Gunner
-        JoystickButton g_AButton = new JoystickButton(g_leftJoystick, 1);
-        JoystickButton g_BButton = new JoystickButton(g_leftJoystick, 2);
-        JoystickButton g_XButton = new JoystickButton(g_leftJoystick, 3);
-        JoystickButton g_YButton = new JoystickButton(g_leftJoystick, 4);
-        JoystickButton g_RBumper = new JoystickButton(g_leftJoystick, 5);
-        JoystickButton g_LBumper = new JoystickButton(g_leftJoystick, 6);
-        JoystickButton g_TFrames = new JoystickButton(g_leftJoystick, 7);
-        JoystickButton g_TLines = new JoystickButton(g_leftJoystick, 8);
+        // //Gunner
+        // JoystickButton g_AButton = new JoystickButton(g_leftJoystick, 1);
+        // JoystickButton g_BButton = new JoystickButton(g_leftJoystick, 2);
+        // JoystickButton g_XButton = new JoystickButton(g_leftJoystick, 3);
+        // JoystickButton g_YButton = new JoystickButton(g_leftJoystick, 4);
+        // JoystickButton g_RBumper = new JoystickButton(g_leftJoystick, 5);
+        // JoystickButton g_LBumper = new JoystickButton(g_leftJoystick, 6);
+        // JoystickButton g_TFrames = new JoystickButton(g_leftJoystick, 7);
+        // JoystickButton g_TLines = new JoystickButton(g_leftJoystick, 8);
 
          
 
       // Driver Button Commands
-        d_TLines.onTrue(new ToggleFieldOriented(m_robotDrive));
+        TLines.onTrue(new ToggleFieldOriented(m_robotDrive));
 
       // Gunner Button Commands
         
@@ -174,7 +170,7 @@ public class RobotContainer {
   }
 
   public double getThrottle() {
-    return -d_leftJoystick.getThrottle();
+    return -leftJoystick.getThrottle();
   }
 
   public Command getAutonomousCommand() {
