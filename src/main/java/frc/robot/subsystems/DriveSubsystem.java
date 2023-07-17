@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.ctre.phoenix.unmanaged.Unmanaged;
 import com.kauailabs.navx.frc.AHRS;
 import java.util.stream.Collectors;
@@ -84,7 +85,9 @@ public class DriveSubsystem extends SubsystemBase {
               CanConstants.BACK_RIGHT_MODULE_STEER_OFFSET)));
   // The gyro sensor
 
-  private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
+  //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
+  WPI_PigeonIMU gyro = new WPI_PigeonIMU(0);
+
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
   private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
@@ -114,7 +117,7 @@ public class DriveSubsystem extends SubsystemBase {
     mpos = m_swerveModules.values().stream().map(module -> module.getPosition()).collect(Collectors.toList()).toArray(mpos);
     m_odometry = new SwerveDrivePoseEstimator(kSwerveKinematics, getHeadingRotation2d(), mpos, new Pose2d());
 
-    m_gyro.reset();
+    gyro.reset();
 
     resetModuleEncoders();
 
@@ -131,7 +134,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     ShuffleboardContent.initMisc(this);
   }
-
+ 
   /**
    * Method to drive the robot using joystick info.
    *
@@ -173,7 +176,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
     // Update the odometry in the periodic block
     updateOdometry();
-    SmartDashboard.putNumber("Yaw",-m_gyro.getYaw());
+    SmartDashboard.putNumber("Yaw",-gyro.getYaw());
 
   }
 
@@ -204,7 +207,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void setOdometry(Pose2d pose) {
     m_odometry.resetPosition(pose.getRotation(), mpos, pose);
-    m_gyro.reset();
+    gyro.reset();
 
   }
 
@@ -213,7 +216,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
-    return -Math.IEEEremainder((m_gyro.getAngle()), 360);
+    return -Math.IEEEremainder((gyro.getAngle()), 360);
 
   }
 

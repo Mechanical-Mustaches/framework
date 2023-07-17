@@ -3,6 +3,10 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.Pigeon2Configuration;
 import com.ctre.phoenix.sensors.Pigeon2_Faults;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.sensors.BasePigeon;
 
@@ -13,19 +17,21 @@ import com.ctre.phoenix.sensors.BasePigeon;
  */
  
 
-public class Pigeon {
+public abstract class Pigeon extends SubsystemBase {
     private Pigeon2 bird = new Pigeon2(0); //See where it it plugged in on robot
     private String name;
+    private BasePigeon m_basePigeon;
 
     Pigeon2Configuration config = new Pigeon2Configuration();
 
     Pigeon2_Faults faults = new Pigeon2_Faults();
 
     // set mount pose as rolled 90 deg counter-clockwise
-    
+    WPI_PigeonIMU gryo = new WPI_PigeonIMU(0);
 
-    public Pigeon(String name){
-        this.name = name;
+
+    public Pigeon(BasePigeon m_basePigeon){
+        
     }
 
     // This is not needed to use since the device is flat on the robot

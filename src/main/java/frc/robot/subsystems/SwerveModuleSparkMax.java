@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -98,8 +99,9 @@ public class SwerveModuleSparkMax extends SubsystemBase {
   private boolean useRRPid =true;
   private double turnDeadband = .5;
 
+
+
   //Suggested using the String CANCoderLayout that was already implemented but IDK
-  Pigeon bird = new Pigeon("Bird");
 
   /**
    * Constructs a SwerveModule.
