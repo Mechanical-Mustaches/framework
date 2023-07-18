@@ -90,7 +90,7 @@ public class RobotContainer {
         new SetSwerveDrive(
             m_robotDrive,
             () -> leftJoystick.getRawAxis(1),
-            () -> leftJoystick.getRawAxis(0),
+            () -> -leftJoystick.getRawAxis(0),
             () -> rightJoystick.getRawAxis(4)));
 
 

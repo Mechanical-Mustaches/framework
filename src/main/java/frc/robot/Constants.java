@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.utils.ModuleMap;
 
 /**
@@ -82,8 +83,8 @@ public final class Constants {
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
         ModuleMap.orderedValues(kModuleTranslations, new Translation2d[0]));
 
-    public static final boolean kGyroReversed = true;
-
+    //public static final boolean kGyroReversed = true;
+    public static final boolean kGyroReversed = false;
     // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
     // These characterization values MUST be determined either experimentally or
     // theoretically
@@ -213,4 +214,11 @@ public final class Constants {
     // Units.radiansToDegrees(kMaxAngularSpeedRadiansPerSecond),
     // Units.radiansToDegrees(kMaxAngularSpeedRadiansPerSecondSquared));
   }
+
+  public static final class PigeonConstant{
+    public static final int Pigeon2 = 1;
+    public static final int ZeroPigeonYaws = XboxController.Button.kA.value;
+    public static final int AddPigeonYaws = XboxController.Button.kB.value;
+  }
+
 }

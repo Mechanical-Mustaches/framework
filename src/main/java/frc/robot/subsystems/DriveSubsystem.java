@@ -88,7 +88,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
   //WPI_PigeonIMU gyro = new WPI_PigeonIMU(30);
-  Pigeon2 gyro = new Pigeon2(30);
+  private final Pigeon2 gyro = new Pigeon2(30);
 
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
@@ -121,6 +121,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     //gyro.reset();
     gyro.getResetCount();
+    
 
     resetModuleEncoders();
 
@@ -184,6 +185,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void updateOdometry() {
+    System.out.println("Yaw: " + gyro.getYaw());
     m_odometry.update(
         getHeadingRotation2d(),
         ModuleMap.orderedValues(getModulePositions(), new SwerveModulePosition[0]));
@@ -212,6 +214,8 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry.resetPosition(pose.getRotation(), mpos, pose);
     //gyro.reset();
     gyro.getResetCount();
+    System.out.println("Yaw: " + gyro.getYaw());
+
 
   }
 
@@ -220,12 +224,16 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
+    System.out.println("Yaw: " + gyro.getYaw());
+
     //return -Math.IEEEremainder((gyro.getAngle()), 360);
+   // System.out.println("AbsoluteCompassHeading: " + gyro.getAbsoluteCompassHeading());
     return -Math.IEEEremainder((gyro.getAbsoluteCompassHeading()), 360);
 
   }
 
   public Rotation2d getHeadingRotation2d() {
+    System.out.println("Yaw: " + gyro.getYaw());
     return Rotation2d.fromDegrees(getHeadingDegrees());
   }
 
@@ -267,6 +275,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void zeroHeading() {
     // m_gyro.reset();
     // m_gyro.setAngleAdjustment(0);
+    gyro.getResetCount();
 
   }
 
