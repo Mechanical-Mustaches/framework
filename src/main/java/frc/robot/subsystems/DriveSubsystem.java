@@ -86,7 +86,7 @@ public class DriveSubsystem extends SubsystemBase {
   // The gyro sensor
 
   //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
-  WPI_PigeonIMU gyro = new WPI_PigeonIMU(0);
+  WPI_PigeonIMU gyro = new WPI_PigeonIMU(30);
 
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
