@@ -24,6 +24,7 @@ import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
 //Import Commands here
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Pigeon;
 
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
@@ -45,11 +46,7 @@ public class RobotContainer {
 
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
-  /*
-   * This is where agent names and abilities are stored
-   * You can add different speeds and autonomous routines into each
-   * section. 
-   */
+  //private final Pigeon m_Pigeon = new Pigeon(Constants.Pigeon2Configuration(), "rio");
  
   
   // The driver's controller
@@ -89,9 +86,9 @@ public class RobotContainer {
         m_robotDrive.setDefaultCommand(
         new SetSwerveDrive(
             m_robotDrive,
-            () -> leftJoystick.getRawAxis(1),
+            () -> -leftJoystick.getRawAxis(1),
             () -> -leftJoystick.getRawAxis(0),
-            () -> rightJoystick.getRawAxis(4)));
+            () -> -rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons
@@ -134,5 +131,16 @@ public class RobotContainer {
     // An ExampleCommand will run in autonomous
     return m_autoChooser.getSelected();
   }
+
+  // private void configureButtonBindings(){
+  //   new JoystickButton(m_DriverController, Constants.ZeroPigeonYaws).onTrue( 
+  //     ()->{
+  //       m_Pigeon.setYaw(0);
+  //       m_Pigeon.setAccumZ(0);
+  //     }
+  //   );
+
+  //   new JoystickButton(m_DriverController, Constants.AddPigeonYaws).
+  // }
 
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ctre.phoenix.sensors.Pigeon2;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.ctre.phoenix.unmanaged.Unmanaged;
 import com.kauailabs.navx.frc.AHRS;
@@ -38,6 +39,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.utils.ModuleMap;
 import frc.robot.utils.ShuffleboardContent;
+import frc.robot.subsystems.Pigeon;
 
 public class DriveSubsystem extends SubsystemBase {
 
@@ -87,8 +89,8 @@ public class DriveSubsystem extends SubsystemBase {
   // The gyro sensor
 
   //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
-  //WPI_PigeonIMU gyro = new WPI_PigeonIMU(30);
-  private final Pigeon2 gyro = new Pigeon2(30);
+    WPI_Pigeon2 gyro = new WPI_Pigeon2(30);
+  //Pigeon2 gyro = new Pigeon2(30);
 
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
@@ -115,12 +117,14 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
+    
     SwerveModulePosition[] mpos = new SwerveModulePosition[4];
     mpos = m_swerveModules.values().stream().map(module -> module.getPosition()).collect(Collectors.toList()).toArray(mpos);
     m_odometry = new SwerveDrivePoseEstimator(kSwerveKinematics, getHeadingRotation2d(), mpos, new Pose2d());
 
-    //gyro.reset();
-    gyro.getResetCount();
+    gyro.reset();
+    //gyro.getResetCount();
+    
     
 
     resetModuleEncoders();
@@ -212,8 +216,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void setOdometry(Pose2d pose) {
     m_odometry.resetPosition(pose.getRotation(), mpos, pose);
-    //gyro.reset();
-    gyro.getResetCount();
+    gyro.reset();
+    //gyro.getResetCount();
     System.out.println("Yaw: " + gyro.getYaw());
 
 
@@ -226,9 +230,9 @@ public class DriveSubsystem extends SubsystemBase {
   public double getHeadingDegrees() {
     System.out.println("Yaw: " + gyro.getYaw());
 
-    //return -Math.IEEEremainder((gyro.getAngle()), 360);
+    return -Math.IEEEremainder((gyro.getAngle()), 360);
    // System.out.println("AbsoluteCompassHeading: " + gyro.getAbsoluteCompassHeading());
-    return -Math.IEEEremainder((gyro.getAbsoluteCompassHeading()), 360);
+    //return -Math.IEEEremainder((gyro.getAbsoluteCompassHeading()), 360);
 
   }
 
@@ -273,9 +277,9 @@ public class DriveSubsystem extends SubsystemBase {
 
   /** Zeroes the heading of the robot. */
   public void zeroHeading() {
-    // m_gyro.reset();
+    gyro.reset();
     // m_gyro.setAngleAdjustment(0);
-    gyro.getResetCount();
+    //gyro.getResetCount();
 
   }
 

@@ -1,5 +1,5 @@
 package frc.robot.subsystems;
-import com.ctre.phoenix.sensors.Pigeon2;
+//import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.Pigeon2Configuration;
 import com.ctre.phoenix.sensors.Pigeon2_Faults;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
@@ -18,7 +18,7 @@ import com.ctre.phoenix.sensors.BasePigeon;
  
 
 public abstract class Pigeon extends SubsystemBase {
-    //private Pigeon2 bird = new Pigeon2(0); //See where it it plugged in on robot
+    private WPI_Pigeon2 bird = new WPI_Pigeon2(30); //See where it it plugged in on robot
     private String name;
     private BasePigeon m_basePigeon;
 
@@ -27,7 +27,7 @@ public abstract class Pigeon extends SubsystemBase {
     Pigeon2_Faults faults = new Pigeon2_Faults();
 
     // set mount pose as rolled 90 deg counter-clockwise
-    WPI_PigeonIMU gryo = new WPI_PigeonIMU(0);
+    //WPI_PigeonIMU gryo = new WPI_PigeonIMU(0);
 
 
     public Pigeon(BasePigeon m_basePigeon){
@@ -71,15 +71,15 @@ public abstract class Pigeon extends SubsystemBase {
     }
 
     public String getYaw(){
-       return "Yaw: ";// + bird.getYaw();
+       return "Yaw: " + bird.getYaw();
     }
 
     public String getPitch(){
-        return "Pitch: ";// + bird.getPitch();
+        return "Pitch: "+ bird.getPitch();
     }
 
     public String getRoll(){
-        return "Roll: ";// + bird.getRoll();
+        return "Roll: " + bird.getRoll();
     }
 
     public void gravity(){

@@ -29,23 +29,23 @@ public final class Constants {
    
   public static final class CanConstants {
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 4;//4
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 3;//3
+    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 3;//4
+    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 4;//3
     public static final int FRONT_LEFT_MODULE_STEER_CANCODER = 33;//22
     public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 262.79;// -Math.toRadians(0.0);//33
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 2;//1
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 1;//2
+    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 1;//2
+    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2;//1
     public static final int FRONT_RIGHT_MODULE_STEER_CANCODER = 32;//21
     public static final double FRONT_RIGHT_MODULE_STEER_OFFSET =9.4;//-Math.toRadians(-42); 287
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 6;//6
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 5;//5
+    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 5;//6
+    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 6;//5
     public static final int BACK_LEFT_MODULE_STEER_CANCODER = 34;//23
     public static final double BACK_LEFT_MODULE_STEER_OFFSET = 52.11;//-Math.toRadians(0.0);//318
 
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8;//8
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 7;//7
+    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 7;//8
+    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 8;//7
     public static final int BACK_RIGHT_MODULE_STEER_CANCODER = 24;//24
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 18.8;//-Math.toRadians(-105) 166
 
@@ -83,8 +83,8 @@ public final class Constants {
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
         ModuleMap.orderedValues(kModuleTranslations, new Translation2d[0]));
 
-    //public static final boolean kGyroReversed = true;
-    public static final boolean kGyroReversed = false;
+    public static final boolean kGyroReversed = true;
+    //public static final boolean kGyroReversed = false;
     // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
     // These characterization values MUST be determined either experimentally or
     // theoretically
@@ -96,7 +96,7 @@ public final class Constants {
     public static final double kaVoltSecondsSquaredPerMeter = 0.15;
 
     public static final double kMaxSpeedMetersPerSecond = 3;
-
+ 
     public static final double kMaxRotationRadiansPerSecond = Math.PI;
     public static final double kMaxRotationRadiansPerSecondSquared = Math.PI;
 
