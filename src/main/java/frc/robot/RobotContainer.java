@@ -23,6 +23,7 @@ import frc.robot.commands.swerve.SetSwerveDrive;
 import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
 //Import Commands here
+import frc.robot.subsystems.DriveSubsystem;
 
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
@@ -38,7 +39,7 @@ import frc.robot.simulation.FieldSim;
  */
 public class RobotContainer {
   // The robot's subsystems
-  //final DriveSubsystem m_robotDrive = new DriveSubsystem();
+ final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
  // public final FieldSim m_fieldSim = new FieldSim(m_robotDrive);
 
@@ -85,12 +86,12 @@ public class RobotContainer {
         // () -> -m_coDriverController.getRawAxis(1),
          //() -> -m_coDriverController.getRawAxis(0),
          //() -> -m_coDriverController.getRawAxis(4)));
-        // m_robotDrive.setDefaultCommand(
-        // new SetSwerveDrive(
-        //     m_robotDrive,
-        //     () -> leftJoystick.getRawAxis(1),
-        //     () -> leftJoystick.getRawAxis(0),
-        //     () -> rightJoystick.getRawAxis(4)));
+        m_robotDrive.setDefaultCommand(
+        new SetSwerveDrive(
+            m_robotDrive,
+            () -> leftJoystick.getRawAxis(1),
+            () -> leftJoystick.getRawAxis(0),
+            () -> rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons

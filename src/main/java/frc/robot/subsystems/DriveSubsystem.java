@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.ctre.phoenix.unmanaged.Unmanaged;
 import com.kauailabs.navx.frc.AHRS;
@@ -86,7 +87,8 @@ public class DriveSubsystem extends SubsystemBase {
   // The gyro sensor
 
   //private final AHRS m_gyro = new AHRS(SPI.Port.kMXP, (byte) 200);
-  WPI_PigeonIMU gyro = new WPI_PigeonIMU(30);
+  //WPI_PigeonIMU gyro = new WPI_PigeonIMU(30);
+  Pigeon2 gyro = new Pigeon2(30);
 
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
@@ -117,7 +119,8 @@ public class DriveSubsystem extends SubsystemBase {
     mpos = m_swerveModules.values().stream().map(module -> module.getPosition()).collect(Collectors.toList()).toArray(mpos);
     m_odometry = new SwerveDrivePoseEstimator(kSwerveKinematics, getHeadingRotation2d(), mpos, new Pose2d());
 
-    gyro.reset();
+    //gyro.reset();
+    gyro.getResetCount();
 
     resetModuleEncoders();
 
@@ -207,7 +210,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void setOdometry(Pose2d pose) {
     m_odometry.resetPosition(pose.getRotation(), mpos, pose);
-    gyro.reset();
+    //gyro.reset();
+    gyro.getResetCount();
 
   }
 
@@ -216,7 +220,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
-    return -Math.IEEEremainder((gyro.getAngle()), 360);
+    //return -Math.IEEEremainder((gyro.getAngle()), 360);
+    return -Math.IEEEremainder((gyro.getAbsoluteCompassHeading()), 360);
 
   }
 
