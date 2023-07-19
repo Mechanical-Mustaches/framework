@@ -189,7 +189,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void updateOdometry() {
-    System.out.println("Yaw: " + gyro.getYaw());
     m_odometry.update(
         getHeadingRotation2d(),
         ModuleMap.orderedValues(getModulePositions(), new SwerveModulePosition[0]));
@@ -218,7 +217,6 @@ public class DriveSubsystem extends SubsystemBase {
     m_odometry.resetPosition(pose.getRotation(), mpos, pose);
     gyro.reset();
     //gyro.getResetCount();
-    System.out.println("Yaw: " + gyro.getYaw());
 
 
   }
@@ -228,7 +226,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public double getHeadingDegrees() {
-    System.out.println("Yaw: " + gyro.getYaw());
 
     return -Math.IEEEremainder((gyro.getAngle()), 360);
    // System.out.println("AbsoluteCompassHeading: " + gyro.getAbsoluteCompassHeading());
@@ -237,7 +234,6 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public Rotation2d getHeadingRotation2d() {
-    System.out.println("Yaw: " + gyro.getYaw());
     return Rotation2d.fromDegrees(getHeadingDegrees());
   }
 
@@ -373,5 +369,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     return 180 * throttleValue;
   }
+
+  public void setZeroNOW(){
+    m_swerveModules.get(ModulePosition.FRONT_LEFT).setZero();
+    m_swerveModules.get(ModulePosition.FRONT_RIGHT).setZero();
+    m_swerveModules.get(ModulePosition.BACK_LEFT).setZero();
+    m_swerveModules.get(ModulePosition.BACK_RIGHT).setZero();
+  }
+  
 
 }

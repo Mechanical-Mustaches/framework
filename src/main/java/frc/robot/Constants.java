@@ -32,7 +32,7 @@ public final class Constants {
     public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 3;//4
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 4;//3
     public static final int FRONT_LEFT_MODULE_STEER_CANCODER = 33;//22
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 262.79;// -Math.toRadians(0.0);//33
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 263.49;// -Math.toRadians(0.0);//33
 
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 1;//2
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 2;//1
@@ -42,43 +42,44 @@ public final class Constants {
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 5;//6
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 6;//5
     public static final int BACK_LEFT_MODULE_STEER_CANCODER = 34;//23
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 52.11;//-Math.toRadians(0.0);//318
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 95.09;//-Math.toRadians(0.0);//318
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 7;//8
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 8;//7
     public static final int BACK_RIGHT_MODULE_STEER_CANCODER = 24;//24
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 18.8;//-Math.toRadians(-105) 166
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 20.21;//-Math.toRadians(-105) 166
 
   } 
 
   public static final class DriveConstants {
 
-    public static final boolean kFrontLeftTurningMotorReversed = true;
-    public static final boolean kBackLeftTurningMotorReversed = true;
     public static final boolean kFrontRightTurningMotorReversed = true;
     public static final boolean kBackRightTurningMotorReversed = true;
+    public static final boolean kBackLeftTurningMotorReversed = true;
+    public static final boolean kFrontLeftTurningMotorReversed = true;
 
-    public static final boolean kFrontLeftDriveMotorReversed = true;
-    public static final boolean kBackLeftDriveMotorReversed = true;
     public static final boolean kFrontRightDriveMotorReversed = true;
     public static final boolean kBackRightDriveMotorReversed = true;
+    public static final boolean kBackLeftDriveMotorReversed = true;
+    public static final boolean kFrontLeftDriveMotorReversed = true;
 
-    public static final double kTrackWidth = Units.inchesToMeters(20.75);
+    public static final double kTrackWidth = Units.inchesToMeters(20.75); //20.75
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(20.75);
+    public static final double kWheelBase = Units.inchesToMeters(20.75); //20.75
 
     public enum ModulePosition {
-      FRONT_LEFT,
       FRONT_RIGHT,
+      FRONT_LEFT,
       BACK_LEFT,
       BACK_RIGHT
     }
 
     public static final Map<ModulePosition, Translation2d> kModuleTranslations = Map.of(
-        ModulePosition.FRONT_LEFT, new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.FRONT_RIGHT, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+        ModulePosition.FRONT_RIGHT, new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+        ModulePosition.FRONT_LEFT, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
         ModulePosition.BACK_LEFT, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.BACK_RIGHT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+        ModulePosition.BACK_RIGHT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
+        );
 
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
         ModuleMap.orderedValues(kModuleTranslations, new Translation2d[0]));

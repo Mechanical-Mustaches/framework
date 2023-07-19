@@ -425,11 +425,13 @@ public class SwerveModuleSparkMax extends SubsystemBase {
     m_turningMotor.setVoltage(speed * RobotController.getBatteryVoltage());
   }
 
+  //SparkMax Control
   public void positionSMTurn(double angle) {
 
     m_turnSMController.setReference(angle, ControlType.kPosition, POS_SLOT);
   }
 
+  //PID Contorl
   public void positionTurn(double angle) {
 
     double turnAngleError = Math.abs(angle - m_turningEncoder.getPosition());
@@ -514,5 +516,13 @@ public class SwerveModuleSparkMax extends SubsystemBase {
     return driveMotorConnected && turnMotorConnected && turnCoderConnected;
 
   }
+
+  public void setZero(){
+    positionTurn(0);
+    m_driveMotor.set(0);
+
+  }
+
+  
 
 }

@@ -6,10 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants.ModulePosition;
@@ -72,6 +74,7 @@ public class RobotContainer {
 
  //   m_fieldSim.initSim();
     initializeAutoChooser();
+    configureButtonBindings();
     // sc.showAll();
     // Configure default commands
   // m_robotDrive.setDefaultCommand(
@@ -88,7 +91,7 @@ public class RobotContainer {
             m_robotDrive,
             () -> -leftJoystick.getRawAxis(1),
             () -> -leftJoystick.getRawAxis(0),
-            () -> -rightJoystick.getRawAxis(4)));
+            () -> rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons
@@ -106,6 +109,13 @@ public class RobotContainer {
        
 
   }
+
+  private void configureButtonBindings(){
+    new JoystickButton(m_DriverController, Button.kA.value)
+    .toggleOnTrue(new RunCommand(
+                  () -> m_robotDrive.setZeroNOW(),
+                    m_robotDrive));
+  } 
 
   private void initializeAutoChooser() {
     m_autoChooser.setDefaultOption("Do Nothing", new WaitCommand(0));
