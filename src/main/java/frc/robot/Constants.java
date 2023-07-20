@@ -69,16 +69,17 @@ public final class Constants {
 
     public enum ModulePosition {
       FRONT_RIGHT,
+      BACK_RIGHT,
       FRONT_LEFT,
-      BACK_LEFT,
-      BACK_RIGHT
-    }
+      BACK_LEFT
+      
+    } 
 
     public static final Map<ModulePosition, Translation2d> kModuleTranslations = Map.of(
         ModulePosition.FRONT_RIGHT, new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.FRONT_LEFT, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-        ModulePosition.BACK_LEFT, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.BACK_RIGHT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
+        ModulePosition.BACK_RIGHT, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+        ModulePosition.FRONT_LEFT, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+        ModulePosition.BACK_LEFT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
         );
 
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
