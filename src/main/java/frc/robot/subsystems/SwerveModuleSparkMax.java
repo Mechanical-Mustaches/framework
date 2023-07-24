@@ -517,6 +517,11 @@ public class SwerveModuleSparkMax extends SubsystemBase {
 
   }
 
+  public void stop(){
+    m_driveMotor.set(0);
+    m_turningMotor.set(0);
+  }
+
   public void setZero(){
     positionTurn(0);
     m_driveMotor.set(0);

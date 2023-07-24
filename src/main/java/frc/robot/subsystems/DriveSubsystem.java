@@ -12,6 +12,10 @@ import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.ctre.phoenix.unmanaged.Unmanaged;
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
 import java.util.stream.Collectors;
 
 import edu.wpi.first.hal.SimDouble;
@@ -27,11 +31,15 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.CanConstants;
@@ -92,6 +100,16 @@ public class DriveSubsystem extends SubsystemBase {
     WPI_Pigeon2 gyro = new WPI_Pigeon2(30);
   //Pigeon2 gyro = new Pigeon2(30);
 
+  private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(
+    kSwerveKinematics,
+    gyro.getRotation2d(),
+    m_swerveModules.getPosition(),
+    new Pose2d(),
+    VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+    VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30))
+    );
+
+
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
   private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
@@ -125,7 +143,8 @@ public class DriveSubsystem extends SubsystemBase {
     gyro.reset();
     //gyro.getResetCount();
     
-    
+   
+ 
 
     resetModuleEncoders();
 
@@ -205,9 +224,26 @@ public class DriveSubsystem extends SubsystemBase {
     }
   }
 
+  public Pose2d getEstimatedPose(){
+    return m_odometry.getEstimatedPosition();
+  }
+
+  public void resetOdometry(Pose2d pose){
+    m_odometry.resetPosition(getHeadingRotation2d()),
+      new SwerveModulePosition(){
+        m_swerveModules.get(ModulePosition.FRONT_LEFT),
+      },
+
+      
+  }
+
   public Pose2d getPoseMeters() {
     return m_odometry.getEstimatedPosition();
   }
+
+  // public Pose2d getPose(){
+  //   return m_odometry.getPoseMeters();
+  // }
 
   public SwerveDrivePoseEstimator getOdometry() {
     return m_odometry;
@@ -295,6 +331,13 @@ public class DriveSubsystem extends SubsystemBase {
     setSwerveModuleStates(states, false);
   }
 
+  public void stopModules(){
+    m_swerveModules.get(ModulePosition.FRONT_LEFT).stop();
+    m_swerveModules.get(ModulePosition.FRONT_RIGHT).stop();
+    m_swerveModules.get(ModulePosition.BACK_LEFT).stop();
+    m_swerveModules.get(ModulePosition.BACK_RIGHT).stop();
+  }
+
   public ProfiledPIDController getThetaPidController() {
     return m_turnController;
   }
@@ -370,11 +413,39 @@ public class DriveSubsystem extends SubsystemBase {
     return 180 * throttleValue;
   }
 
+  public PIDController getXPID() {
+    return m_xController;
+  }
+
+  public PIDController getYPID(){
+    return m_yController;
+  }
+
   public void setZeroNOW(){
     m_swerveModules.get(ModulePosition.FRONT_LEFT).setZero();
     m_swerveModules.get(ModulePosition.FRONT_RIGHT).setZero();
     m_swerveModules.get(ModulePosition.BACK_LEFT).setZero();
     m_swerveModules.get(ModulePosition.BACK_RIGHT).setZero();
+  }
+
+  public Command followTrajectoryCommand(PathPlannerTrajectory trajectory, boolean isFirstPath){
+    return new SequentialCommandGroup(
+      new InstantCommand(() -> {
+        if(isFirstPath){
+          resetOdometry(trajectory.getInitialHolonomicPose());
+        }
+      }),
+      new PPSwerveControllerCommand(trajectory,
+       this::getPoseMeters,
+        kSwerveKinematics,
+        getXPID(),
+        getYPID(),
+        getThetaPidController(),
+        this::setSwerveModuleStates,
+        true,
+        this)
+    );
+    // new InstantCommand(() -> stopModules());
   }
   
 
