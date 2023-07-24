@@ -19,7 +19,7 @@
         {
             "groupId": "com.pathplanner.lib",
             "artifactId": "PathplannerLib-cpp",
-            "version": "2023.3.3",
+            "version": "2023.4.3",
             "libName": "PathplannerLib",
             "headerClassifier": "headers",
             "sharedLibrary": false,
