@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase{
     //Instance Variables
     private String name;
-    private CANSparkMax motor = new CANSparkMax(98, MotorType.kBrushless);
+    private CANSparkMax motor = new CANSparkMax(11, MotorType.kBrushless);
     private Double speed;
-    RelativeEncoder encoder;
+    RelativeEncoder shooterEncoder;
     
 
     //Constructor 

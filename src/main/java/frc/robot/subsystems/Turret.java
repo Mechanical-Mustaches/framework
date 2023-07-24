@@ -2,15 +2,17 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Turret extends SubsystemBase{
     private String name;
-    private CANSparkMax motor = new CANSparkMax(96, MotorType.kBrushless);
+    private CANSparkMax motor = new CANSparkMax(10, MotorType.kBrushless);
     RelativeEncoder encoder;
     private double speed = 0.4;
+    private SparkMaxPIDController m_PidController;
 
     //Constructor
     public Turret(String name){
@@ -21,6 +23,15 @@ public class Turret extends SubsystemBase{
     public void initalize(){
         System.out.println(name + "is booting up");
         encoder.setPosition(0);
+    }
+
+    @Override
+    public void periodic(){
+        encoder = motor.getEncoder();
+    }
+
+    public double getTurretPosition(){
+        return encoder.getPosition();
     }
 
     //Movement
