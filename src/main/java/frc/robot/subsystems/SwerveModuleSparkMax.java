@@ -46,6 +46,8 @@ public class SwerveModuleSparkMax extends SubsystemBase {
 
   private final SparkMaxPIDController m_driveVelController;
 
+  public final int m_locationIndex;
+
   private SparkMaxPIDController m_turnSMController = null;
 
   private PIDController m_turnController = null;
@@ -99,7 +101,7 @@ public class SwerveModuleSparkMax extends SubsystemBase {
   private boolean useRRPid =true;
   private double turnDeadband = .5;
 
-
+  private boolean m_isOpenLoop;
 
   //Suggested using the String CANCoderLayout that was already implemented but IDK
 
@@ -117,13 +119,20 @@ public class SwerveModuleSparkMax extends SubsystemBase {
 
   //CONSTRUCTOR ******************************************************************
   public SwerveModuleSparkMax(
-      ModulePosition modulePosition,
+      int locationIndex,
       int driveMotorCanChannel,
       int turningMotorCanChannel,
       int cancoderCanChannel,
       boolean driveMotorReversed,
       boolean turningMotorReversed,
+      int pdpDriveChannel,
+      int pdpTurnChannel,
+      boolean isOpenLoop,
       double turningEncoderOffset) {
+
+    m_locationIndex = locationIndex;
+
+    m_isOpenLoop = isOpenLoop;
 
     m_driveMotor = new CANSparkMax(driveMotorCanChannel, MotorType.kBrushless);
 
@@ -211,9 +220,9 @@ public class SwerveModuleSparkMax extends SubsystemBase {
 
       tuneSMPosGains();
 
-    m_modulePosition = modulePosition;
+   // m_modulePosition = modulePosition;
 
-    m_moduleNumber = m_modulePosition.ordinal();// gets module enum index
+   // m_moduleNumber = m_modulePosition.ordinal();// gets module enum index
 
     if (RobotBase.isSimulation()) {
 
@@ -397,6 +406,29 @@ public class SwerveModuleSparkMax extends SubsystemBase {
 
   public void setModulePose(Pose2d pose) {
     m_pose = pose;
+  }
+
+  public void setDesiredState(SwerveModuleState desiredState) {
+    state = AngleUtils.optimize(desiredState, getHeadingRotation2d());
+
+    SmartDashboard.putNumber("StateSpeed", state.speedMetersPerSecond);
+
+    SmartDashboard.putNumber("StateDegs", state.angle.getDegrees());
+
+    if((Math.abs(state.speedMetersPerSecond) <= (DriveConstants.kMaxSpeedMetersPerSecond * 0.01))){
+      angle = m_lastAngle;
+    }
+    else{
+      angle =state.angle.getDegrees();
+
+      m_lastAngle = angle;
+
+      SmartDashboard.putNumber("TESTSP", state.speedMetersPerSecond);
+
+      driveMotorMove(state.speedMetersPerSecond);
+
+      positionTurn(angle);
+    }
   }
 
   public void setDriveBrakeMode(boolean on) {

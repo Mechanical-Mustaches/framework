@@ -27,6 +27,8 @@ import frc.robot.simulation.FieldSim;
 //Import Commands here
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Pigeon;
+import frc.robot.utils.AutoFactory;
+
 
 /*
  * to subsystems add: arm, turret, elevator, floorintake, armintake, conveyorbelt, limelight,
@@ -50,6 +52,7 @@ public class RobotContainer {
 
   //private final Pigeon m_Pigeon = new Pigeon(Constants.Pigeon2Configuration(), "rio");
  
+  public AutoFactory m_autoFactory;
   
   // The driver's controller
 
@@ -75,6 +78,8 @@ public class RobotContainer {
  //   m_fieldSim.initSim();
     initializeAutoChooser();
     configureButtonBindings();
+
+    m_autoFactory = AutoFactory(m_robotDrive);
     // sc.showAll();
     // Configure default commands
   // m_robotDrive.setDefaultCommand(
@@ -108,6 +113,10 @@ public class RobotContainer {
         
        
 
+  }
+
+  private AutoFactory AutoFactory(DriveSubsystem m_robotDrive2) {
+    return null;
   }
 
   private void configureButtonBindings(){

@@ -51,6 +51,26 @@ public final class Constants {
 
   } 
 
+  public class IDConstants{
+    public static final int FRONT_LEFT_LOCATION = 0;
+    public static final int FRONT_RIGHT_LOCATION = 1;
+    public static final int BACK_LEFT_LOCATION = 2;
+    public static final int BACK_RIGHT_LOCATION = 3;
+  }
+
+  public class PDPConstants {
+    public static final int FRONT_LEFT_DRIVE_CHANNEL = 1;
+    public static final int FRONT_RIGHT_DRIVE_CHANNEL = 1;
+    public static final int BACK_LEFT_DRIVE_CHANNEL = 1;
+    public static final int BACK_RIGHT_DRIVE_CHANNEL = 1;
+
+    public static final int FRONT_LEFT_TURN_CHANNEL = 1;
+    public static final int FRONT_RIGHT_TURN_CHANNEL = 1;
+    public static final int BACK_LEFT_TURN_CHANNEL = 1;
+    public static final int BACK_RIGHT_TURN_CHANNEL = 1;
+
+  }
+
   public static final class DriveConstants {
 
     public static final boolean kFrontRightTurningMotorReversed = true;
@@ -68,18 +88,28 @@ public final class Constants {
     public static final double kWheelBase = Units.inchesToMeters(20.75); //20.75
 
     public enum ModulePosition {
-      FRONT_RIGHT,
-      BACK_RIGHT,
-      FRONT_LEFT,
-      BACK_LEFT
+      FRONT_RIGHT_LOCATION,
+      BACK_RIGHT_LOCATION,
+      FRONT_LEFT_LOCATION,
+      BACK_LEFT_LOCATION;
+
+    public void turnMotorMove(double speed) {
+    }
+
+    public boolean turnInPosition(double targetAngle) {
+        return false;
+    }
+
+    public void positionTurn(double angle) {
+    }
       
     } 
 
     public static final Map<ModulePosition, Translation2d> kModuleTranslations = Map.of(
-        ModulePosition.FRONT_RIGHT, new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.BACK_RIGHT, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-        ModulePosition.FRONT_LEFT, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-        ModulePosition.BACK_LEFT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
+        ModulePosition.FRONT_RIGHT_LOCATION, new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+        ModulePosition.BACK_RIGHT_LOCATION, new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+        ModulePosition.FRONT_LEFT_LOCATION, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+        ModulePosition.BACK_LEFT_LOCATION, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2)
         );
 
     public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(

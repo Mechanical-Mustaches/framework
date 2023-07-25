@@ -4,12 +4,23 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PPSwerveControllerCommand;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,6 +36,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  private final EventLoop m_loop = new EventLoop();
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -35,6 +48,20 @@ public class Robot extends TimedRobot {
     if (RobotBase.isReal())
     
       DataLogManager.start();
+    
+    PPSwerveControllerCommand.setLoggingCallbacks(
+      (PathPlannerTrajectory activeTrajectory) -> {
+        //Log current trajectory
+      },
+      (Pose2d targetPose) -> {
+        //Log target pose
+      },
+      (ChassisSpeeds setpointSpeed) -> {
+        // Log setpoint ChassisSpeeds
+      }, 
+      (Translation2d translationError, Rotation2d rotationError) -> {
+        //Log path following error
+      });
 
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
@@ -94,6 +121,9 @@ SmartDashboard.putStringArray("g", g);
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+   // m_autonomousCommand = m_robotContainer.m_autoFactory.getAutonomousCommand();
+
+    m_robotContainer.m_robotDrive.setIdleMode(true);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -103,6 +133,7 @@ SmartDashboard.putStringArray("g", g);
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    DriveSubsystem.followTrajectoryCommand(testPath, true);
   }
 
   @Override

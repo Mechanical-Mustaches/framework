@@ -43,10 +43,10 @@ public class PositionTurnModule extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_drive.turnModule(ModulePosition.FRONT_LEFT, 0);
-    m_drive.turnModule(ModulePosition.FRONT_RIGHT, 0);
-    m_drive.turnModule(ModulePosition.BACK_RIGHT, 0);
-    m_drive.turnModule(ModulePosition.BACK_LEFT, 0);
+    m_drive.turnModule(ModulePosition.FRONT_LEFT_LOCATION, 0);
+    m_drive.turnModule(ModulePosition.FRONT_RIGHT_LOCATION, 0);
+    m_drive.turnModule(ModulePosition.BACK_RIGHT_LOCATION, 0);
+    m_drive.turnModule(ModulePosition.BACK_LEFT_LOCATION, 0);
   }
 
   // Returns true when the command should end.

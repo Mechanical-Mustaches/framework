@@ -21,6 +21,8 @@ public class ShuffleboardContent {
 
         private ModulePosition m_modulePosition;
 
+        private static int locationIndex;
+
         static ShuffleboardLayout boolsLayout;
 
         public ShuffleboardContent() {
@@ -29,26 +31,24 @@ public class ShuffleboardContent {
 
         public static void initBooleanShuffleboard(SwerveModuleSparkMax m_sm) {
 
-                ModulePosition m_modulePosition = m_sm.getModulePosition();
-                int m_moduleNumber = m_modulePosition.ordinal();
-                String abrev = m_sm.modAbrev[m_moduleNumber];
+                locationIndex = m_sm.m_locationIndex;
+                String abrev = m_sm.modAbrev[locationIndex];
 
                 ShuffleboardTab x = Shuffleboard.getTab("Drivetrain");
 
                 x.addBoolean("DriveCAN" + abrev, () -> m_sm.driveMotorConnected)
-                                .withPosition(8, m_moduleNumber);
+                                .withPosition(8, locationIndex);
                 x.addBoolean("TurnCAN" + abrev, () -> m_sm.turnMotorConnected)
-                                .withPosition(9, m_moduleNumber);
+                                .withPosition(9, locationIndex);
 
         }
 
         public static void initDriveShuffleboard(SwerveModuleSparkMax m_sm) {
-                ModulePosition m_modulePosition = m_sm.getModulePosition();
-                int m_moduleNumber = m_modulePosition.ordinal();
-                String abrev = m_sm.modAbrev[m_moduleNumber];
-                String driveLayout = m_modulePosition.toString() + " Drive";
+                int locationIndex = m_sm.m_locationIndex;
+                String abrev = m_sm.modAbrev[locationIndex];
+                String driveLayout = abrev + " Drive";
                 ShuffleboardLayout drLayout = Shuffleboard.getTab("Drivetrain")
-                                .getLayout(driveLayout, BuiltInLayouts.kList).withPosition(m_moduleNumber * 2, 0)
+                                .getLayout(driveLayout, BuiltInLayouts.kList).withPosition(locationIndex * 2, 0)
                                 .withSize(2, 2).withProperties(Map.of("Label position", "LEFT"));
 
                 drLayout.addNumber("Drive Speed MPS " + abrev, () -> m_sm.getDriveVelocity());
@@ -67,13 +67,12 @@ public class ShuffleboardContent {
         }
 
         public static void initTurnShuffleboard(SwerveModuleSparkMax m_sm) {
-                ModulePosition m_modulePosition = m_sm.getModulePosition();
-                int m_moduleNumber = m_modulePosition.ordinal();
-                String abrev = m_sm.modAbrev[m_moduleNumber];
-                String turnLayout = m_modulePosition.toString() + " Turn";
+                int locationIndex = m_sm.m_locationIndex;
+                String abrev = m_sm.modAbrev[locationIndex];
+                String turnLayout = abrev + " Turn";
 
                 ShuffleboardLayout tuLayout = Shuffleboard.getTab("Drivetrain")
-                                .getLayout(turnLayout, BuiltInLayouts.kList).withPosition(m_moduleNumber * 2, 2)
+                                .getLayout(turnLayout, BuiltInLayouts.kList).withPosition(locationIndex * 2, 2)
                                 .withSize(2, 3).withProperties(Map.of("Label position", "LEFT"));
 
                 tuLayout.addNumber("Turn Setpoint Deg " + abrev, () -> m_sm.angle);
@@ -100,26 +99,24 @@ public class ShuffleboardContent {
 
         public static void initCoderBooleanShuffleboard(SwerveModuleSparkMax m_sm) {
 
-                ModulePosition m_modulePosition = m_sm.getModulePosition();
-                int m_moduleNumber = m_modulePosition.ordinal();
-                String abrev = m_sm.modAbrev[m_moduleNumber];
+               int locationIndex = m_sm.m_locationIndex;
+                String abrev = m_sm.modAbrev[locationIndex];
                 ShuffleboardTab x = Shuffleboard.getTab("CanCoders");
 
                 x.addBoolean("CANOK" + abrev, () -> m_sm.turnCoderConnected)
-                                .withPosition(8, m_moduleNumber);
+                                .withPosition(8, locationIndex);
                 x.addBoolean("Fault" + abrev, () -> m_sm.m_turnCANcoder.getFaulted())
-                                .withPosition(9, m_moduleNumber);
+                                .withPosition(9, locationIndex);
 
         }
 
         public static void initCANCoderShuffleboard(SwerveModuleSparkMax m_sm) {
-                ModulePosition m_modulePosition = m_sm.getModulePosition();
-                int m_moduleNumber = m_modulePosition.ordinal();
-                String abrev = m_sm.modAbrev[m_moduleNumber];
-                String canCoderLayout = m_modulePosition.toString() + " CanCoder";
+                int locationIndex = m_sm.m_locationIndex;
+                String abrev = m_sm.modAbrev[locationIndex];
+                String canCoderLayout = abrev + " CanCoder";
 
                 ShuffleboardLayout coderLayout = Shuffleboard.getTab("CanCoders")
-                                .getLayout(canCoderLayout, BuiltInLayouts.kList).withPosition(m_moduleNumber * 2, 0)
+                                .getLayout(canCoderLayout, BuiltInLayouts.kList).withPosition(locationIndex * 2, 0)
                                 .withSize(2, 3).withProperties(Map.of("Label position", "LEFT"));
 
                 coderLayout.addNumber("Position" + abrev,

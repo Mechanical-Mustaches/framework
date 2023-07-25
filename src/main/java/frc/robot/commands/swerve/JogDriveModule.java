@@ -57,23 +57,23 @@ public class JogDriveModule extends CommandBase {
 
     if (!m_individual) {
 
-      m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT, throttle);
+      m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT_LOCATION, throttle);
 
-      m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT, throttle);
+      m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT_LOCATION, throttle);
 
-      m_swerveDrive.driveModule(ModulePosition.BACK_LEFT, throttle);
+      m_swerveDrive.driveModule(ModulePosition.BACK_LEFT_LOCATION, throttle);
 
-      m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT, throttle);
+      m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT_LOCATION, throttle);
 
     } else {
 
-      m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT, throttle);
+      m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT_LOCATION, throttle);
 
-      m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT, strafe);
+      m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT_LOCATION, strafe);
 
-      m_swerveDrive.driveModule(ModulePosition.BACK_LEFT, rotation);
+      m_swerveDrive.driveModule(ModulePosition.BACK_LEFT_LOCATION, rotation);
 
-      m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT, test);
+      m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT_LOCATION, test);
     }
 
    
@@ -82,10 +82,10 @@ public class JogDriveModule extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT,0);
-    m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT, 0);
-    m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT, 0);
-    m_swerveDrive.driveModule(ModulePosition.BACK_LEFT, 0);
+    m_swerveDrive.driveModule(ModulePosition.FRONT_LEFT_LOCATION,0);
+    m_swerveDrive.driveModule(ModulePosition.FRONT_RIGHT_LOCATION, 0);
+    m_swerveDrive.driveModule(ModulePosition.BACK_RIGHT_LOCATION, 0);
+    m_swerveDrive.driveModule(ModulePosition.BACK_LEFT_LOCATION, 0);
   }
 
   // Returns true when the command should end.
