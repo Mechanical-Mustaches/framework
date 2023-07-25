@@ -51,6 +51,25 @@ public final class Constants {
 
   } 
 
+  public class IDConstants {
+    public static final int FRONT_LEFT_LOCATION = 0;
+    public static final int FRONT_RIGHT_LOCATION = 1;
+    public static final int BACK_LEFT_LOCATION = 2;
+    public static final int BACK_RIGHT_LOCATION = 3;
+  }
+
+  public class PDPConstatns{
+    public static final int FRONT_LEFT_DRIVE_CHANNEL = 1;
+    public static final int FRONT_RIGHT_DRIVE_CHANNEL = 1;
+    public static final int BACK_LEFT_DRIVE_CHANNEL = 1;
+    public static final int BACK_RIGHT_DRIVE_CHANNEL = 1;
+
+    public static final int FRONT_LEFT_TURN_CHANNEL = 1;
+    public static final int FRONT_RIGHT_TURN_CHANNEL = 1;
+    public static final int BACK_LEFT_TURN_CHANNEL = 1;
+    public static final int BACK_RIGHT_TURN_CHANNEL = 1;
+  }
+
   public static final class DriveConstants {
 
     public static final boolean kFrontRightTurningMotorReversed = true;
@@ -114,6 +133,9 @@ public final class Constants {
     public static double kControllerRotDeadband = .1;
     
     public static double kVoltCompensation=12.6;
+
+    public static int kPhysicalMaxAngularSpeedRadiansPerSecond = 3;
+    public static double kPhysicalMaxSpeedMetersPerSecond = 3.35;
 
     // public static final double kMaxRotationRadiansPerSecond =
     // Math.hypot(DriveConstants.kTrackWidth / 2.0,
@@ -181,6 +203,8 @@ public final class Constants {
     
     public static double kMaxModuleAngularSpeedDegPerSec = 90;
 
+    public static double kDrivingEncoderPositionFactor;
+
     public static final double kMaxModuleAngularAccelerationDegreesPerSecondSquared = 90;
 
   }
@@ -189,6 +213,25 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kCoDriverControllerPort = 1;
  
+  }
+
+  public static final class PPConstants {
+    public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
+    public static final double kMaxAngularSpeedRadiansPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+
+    public static final double kPXController = 2;
+    public static final double kDXController = 0;
+    public static final double kIXController = 0;
+
+    public static final double kPYController = 2;
+    public static final double kDYController = 0;
+    public static final double kIYController = 0;
+
+    public static final double kPThetaController = 0.1;
+    public static final double kDThetaController = 0;
+    public static final double kIThetaController = 0;
+
   }
 
   public static final class TrapezoidConstants {

@@ -18,14 +18,7 @@ import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.Constants.OIConstants;
 // import frc.robot.commands.auto.DriveForward;
 // import frc.robot.commands.auto.FiveBallAuto;
-import frc.robot.commands.swerve.JogDriveModule;
-import frc.robot.commands.swerve.JogTurnModule;
-import frc.robot.commands.swerve.PositionTurnModule;
-import frc.robot.commands.swerve.SetSwerveDrive;
-import frc.robot.commands.swerve.ToggleFieldOriented;
-import frc.robot.simulation.FieldSim;
-//Import Commands here
-import frc.robot.subsystems.DriveSubsystem;
+
 import frc.robot.subsystems.Pigeon;
 
 /*
@@ -42,7 +35,7 @@ import frc.robot.subsystems.Pigeon;
  */
 public class RobotContainer {
   // The robot's subsystems
- final DriveSubsystem m_robotDrive = new DriveSubsystem();
+ 
 
  // public final FieldSim m_fieldSim = new FieldSim(m_robotDrive);
 
@@ -86,12 +79,12 @@ public class RobotContainer {
         // () -> -m_coDriverController.getRawAxis(1),
          //() -> -m_coDriverController.getRawAxis(0),
          //() -> -m_coDriverController.getRawAxis(4)));
-        m_robotDrive.setDefaultCommand(
-        new SetSwerveDrive(
-            m_robotDrive,
-            () -> -leftJoystick.getRawAxis(1),
-            () -> -leftJoystick.getRawAxis(0),
-            () -> rightJoystick.getRawAxis(4)));
+        // m_robotDrive.setDefaultCommand(
+        // new SetSwerveDrive(
+        //     m_robotDrive,
+        //     () -> -leftJoystick.getRawAxis(1),
+        //     () -> -leftJoystick.getRawAxis(0),
+        //     () -> rightJoystick.getRawAxis(4)));
 
 
       //Controller Buttons
@@ -111,10 +104,10 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings(){
-    new JoystickButton(m_DriverController, Button.kA.value)
-    .toggleOnTrue(new RunCommand(
-                  () -> m_robotDrive.setZeroNOW(),
-                    m_robotDrive));
+    // new JoystickButton(m_DriverController, Button.kA.value)
+    // .toggleOnTrue(new RunCommand(
+    //               () -> m_robotDrive.setZeroNOW(),
+    //                 m_robotDrive));
   } 
 
   private void initializeAutoChooser() {
