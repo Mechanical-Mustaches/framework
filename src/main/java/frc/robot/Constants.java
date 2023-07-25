@@ -113,7 +113,11 @@ public final class Constants {
     public static double kControllerDeadband = .05;
     public static double kControllerRotDeadband = .1;
     
-    public static double kVoltCompensation=12.6;
+    public static double kVoltCompensation = 12.6;
+
+    public static double kPhysicalMaxSpeedMetersPerSecond = 3.25;
+
+    public static int kPhysicalMaxAngularSpeedRadiansPerSecond = 3;
 
     // public static final double kMaxRotationRadiansPerSecond =
     // Math.hypot(DriveConstants.kTrackWidth / 2.0,
@@ -190,6 +194,27 @@ public final class Constants {
     public static final int kCoDriverControllerPort = 1;
  
   }
+
+  public static final class PPConstants {
+    public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
+    public static final double kMaxAngularSpeedDegreesPerSecond = DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+
+    public static final double kPXController = 2;
+    public static final double kDXController = 0;
+    public static final double kIXController = 0;
+
+    public static final double kPYController = 2;
+    public static final double kDYController = 0;
+    public static final double kIYController = 0;
+
+    public static final double kPThetaController = 0.1;
+    public static final double kDThetaController = 0;
+    public static final double kIThetaController = 0;
+  }
+
+
 
   public static final class TrapezoidConstants {
     

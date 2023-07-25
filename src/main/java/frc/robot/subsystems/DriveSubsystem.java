@@ -45,6 +45,7 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants;
 import frc.robot.Constants.CanConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PPConstants;
 import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.utils.ModuleMap;
 import frc.robot.utils.ShuffleboardContent;
@@ -78,7 +79,8 @@ public class DriveSubsystem extends SubsystemBase {
               CanConstants.FRONT_RIGHT_MODULE_STEER_OFFSET),
 
           ModulePosition.BACK_LEFT,
-          new SwerveModuleSparkMax(ModulePosition.BACK_LEFT,
+          new SwerveModuleSparkMax(
+            ModulePosition.BACK_LEFT,
               CanConstants.BACK_LEFT_MODULE_DRIVE_MOTOR,
               CanConstants.BACK_LEFT_MODULE_STEER_MOTOR,
               CanConstants.BACK_LEFT_MODULE_STEER_CANCODER,
@@ -101,19 +103,26 @@ public class DriveSubsystem extends SubsystemBase {
     WPI_Pigeon2 gyro = new WPI_Pigeon2(30);
   //Pigeon2 gyro = new Pigeon2(30);
 
-  private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(
-    kSwerveKinematics,
-    gyro.getRotation2d(),
-    m_swerveModules.getPosition(),
-    new Pose2d(),
-    VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
-    VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30))
-    );
+//   private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(
+//     kSwerveKinematics,
+//     gyro.getRotation2d(),
+//     m_swerveModules.getPosition(),
+//     new Pose2d(),
+//     VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+//     VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30))
+//     );
 
+    private PIDController xPID = new PIDController(
+        PPConstants.kPXController, PPConstants.kIXController, PPConstants.kDXController);
 
+    private PIDController yPID = new PIDController(
+        PPConstants.kPYController, PPConstants.kIYController, PPConstants.kDYController);
+    
+    // private PIDController thetaPID = new PIDController(
+    //     PPConstants.kPThetaController, PPConstants.kIThetaController, PPConstants.kDThetaController);
 
-  private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
-  private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
+//   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
+//   private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
   private ProfiledPIDController m_turnController = new ProfiledPIDController(
       DriveConstants.kP_Theta, 0,
       DriveConstants.kD_Theta,
@@ -229,14 +238,14 @@ public class DriveSubsystem extends SubsystemBase {
     return m_odometry.getEstimatedPosition();
   }
 
-  public void resetOdometry(Pose2d pose){
-    m_odometry.resetPosition(getHeadingRotation2d()),
-      new SwerveModulePosition(){
-        m_swerveModules.get(ModulePosition.FRONT_LEFT),
-      },
+//   public void resetOdometry(Pose2d pose){
+//     m_odometry.resetPosition(getHeadingRotation2d()),
+//       new SwerveModulePosition(){
+//         m_swerveModules.get(ModulePosition.FRONT_LEFT),
+//       },
 
       
-  }
+//   }
 
   public Pose2d getPoseMeters() {
     return m_odometry.getEstimatedPosition();
@@ -320,13 +329,7 @@ public class DriveSubsystem extends SubsystemBase {
     return getPoseMeters().getTranslation();
   }
 
-  public PIDController getXPidController() {
-    return m_xController;
-  }
 
-  public PIDController getYPidController() {
-    return m_yController;
-  }
 
   public void setSwerveModuleStatesAuto(SwerveModuleState[] states) {
     setSwerveModuleStates(states, false);
@@ -415,11 +418,11 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public PIDController getXPID() {
-    return m_xController;
+    return xPID;
   }
 
   public PIDController getYPID(){
-    return m_yController;
+    return yPID;
   }
 
   public void setZeroNOW(){
@@ -436,21 +439,16 @@ public class DriveSubsystem extends SubsystemBase {
           resetOdometry(trajectory.getInitialHolonomicPose());
         }
       }),
-      new SwerveControllerCommand(trajectory,
-      this::getPoseMeters,
-      kSwerveKinematics,
-      null, 
-      null,
-      null)
-      // new PPSwerveControllerCommand(trajectory,
-      //  this::getPoseMeters,
-      //   kSwerveKinematics,
-      //   getXPidController(),
-      //   getYPidController(),
-      //   // getThetaPidController(),
-      //   // this::setSwerveModuleStates,
-      //   // true,
-        // this)
+      new PPSwerveControllerCommand(
+        trajectory,
+        this::getPoseMeters,
+        kSwerveKinematics,
+        getXPID(),
+        getYPID(),
+        getThetaPidController(),
+        this::setSwerveModuleStates,
+        true,
+        this)
     );
     // new InstantCommand(() -> stopModules());
   }
