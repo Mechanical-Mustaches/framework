@@ -1,6 +1,14 @@
  package frc.robot.commands.Auto;
 // import java.util.HashMap;
 
+//import java.util.List;
+import java.util.Map;
+
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 // import com.pathplanner.lib.PathConstraints;
@@ -13,13 +21,19 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 // import frc.robot.subsystems.DriveSubsystem;
 
 public class NewAuto extends InstantCommand {
-
+    Map<String, Command> eventMap;
+    
     public NewAuto() {
 
     }
 
     @Override
     public void initialize() {}
+
+    public CommandBase followPathWithEvents(PathPlannerTrajectory trajectory) {
+        return new FollowPathWithEvents(followPathWithEvents(trajectory), trajectory.getMarkers(), eventMap);
+    }
+}
 
 //         public static Command runPath(DriveSubsystem driveSubsystem){
 //             var trajectory = PathPlanner.loadPath("Basic", PathConstraints(4,1));
@@ -42,4 +56,4 @@ public class NewAuto extends InstantCommand {
 //         private NewAuto(){
 //             throw new UnsupportedOperationException("This is a utility class!");
 //         }
- }
+ 

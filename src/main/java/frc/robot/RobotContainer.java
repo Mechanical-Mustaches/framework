@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
@@ -27,7 +31,6 @@ import frc.robot.simulation.FieldSim;
 //Import Commands here
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Pigeon;
-import frc.robot.utils.AutoFactory;
 
 
 /*
@@ -52,7 +55,6 @@ public class RobotContainer {
 
   //private final Pigeon m_Pigeon = new Pigeon(Constants.Pigeon2Configuration(), "rio");
  
-  public AutoFactory m_autoFactory;
   
   // The driver's controller
 
@@ -67,6 +69,7 @@ public class RobotContainer {
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
+   * @return 
    */
   public RobotContainer() {
     // Preferences.removeAll();
@@ -79,7 +82,6 @@ public class RobotContainer {
     initializeAutoChooser();
     configureButtonBindings();
 
-    m_autoFactory = AutoFactory(m_robotDrive);
     // sc.showAll();
     // Configure default commands
   // m_robotDrive.setDefaultCommand(
@@ -110,14 +112,11 @@ public class RobotContainer {
       //  button_8.onTrue(new ToggleFieldOriented(m_robotDrive));
 
       // Gunner Button Commands
-        
-       
 
+     
   }
 
-  private AutoFactory AutoFactory(DriveSubsystem m_robotDrive2) {
-    return null;
-  }
+ 
 
   private void configureButtonBindings(){
     new JoystickButton(m_DriverController, Button.kA.value)
@@ -127,9 +126,11 @@ public class RobotContainer {
   } 
 
   private void initializeAutoChooser() {
-    m_autoChooser.setDefaultOption("Do Nothing", new WaitCommand(0));
+    //m_autoChooser.setDefaultOption("Do Nothing", new WaitCommand(0));
+   // m_autoChooser.addOption("swerve Test", new swerveTest());
    
-    SmartDashboard.putData("Auto Selector", m_autoChooser);
+    //SmartDashboard.putData("Auto Selector", m_autoChooser);
+    
 
   }
 
@@ -145,10 +146,13 @@ public class RobotContainer {
   public double getThrottle() {
     return -leftJoystick.getThrottle();
   }
-
+ 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoChooser.getSelected();
+    PathPlannerTrajectory swerveTest = PathPlanner.loadPath("SwerveTest", new PathConstraints(4,3));
+       
+    return m_robotDrive.followTrajectoryCommand(swerveTest, true);
+  
   }
 
   // private void configureButtonBindings(){
@@ -161,5 +165,7 @@ public class RobotContainer {
 
   //   new JoystickButton(m_DriverController, Constants.AddPigeonYaws).
   // }
+
+    
 
 }

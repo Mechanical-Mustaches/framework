@@ -38,6 +38,7 @@ public class Robot extends TimedRobot {
 
   private final EventLoop m_loop = new EventLoop();
 
+  PathPlannerTrajectory testPath = PathPlanner.loadPath("SwerveTest", new PathConstraints(4, 3));
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -121,7 +122,7 @@ SmartDashboard.putStringArray("g", g);
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-   // m_autonomousCommand = m_robotContainer.m_autoFactory.getAutonomousCommand();
+    //m_autonomousCommand = m_robotContainer.m_autoFactory.getAutonomousCommand();
 
     m_robotContainer.m_robotDrive.setIdleMode(true);
     // schedule the autonomous command (example)
@@ -133,7 +134,6 @@ SmartDashboard.putStringArray("g", g);
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    DriveSubsystem.followTrajectoryCommand(testPath, true);
   }
 
   @Override
