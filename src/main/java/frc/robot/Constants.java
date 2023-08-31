@@ -42,12 +42,12 @@ public final class Constants {
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 5;//6
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 6;//5
     public static final int BACK_LEFT_MODULE_STEER_CANCODER = 34;//23
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 95.09;//-Math.toRadians(0.0);//318
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 60.02;//-Math.toRadians(0.0);//318
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 7;//8
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 8;//7
     public static final int BACK_RIGHT_MODULE_STEER_CANCODER = 24;//24
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 20.21;//-Math.toRadians(-105) 166
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 18.89;//-Math.toRadians(-105) 166
 
   } 
 
@@ -276,6 +276,14 @@ public final class Constants {
     public static final int Pigeon2 = 1;
     public static final int ZeroPigeonYaws = XboxController.Button.kA.value;
     public static final int AddPigeonYaws = XboxController.Button.kB.value;
+  }
+
+  public static final class PPvariables{
+    public static final double squareSize = Units.inchesToMeters(48);
+    public static final double figureEightSize = Units.inchesToMeters(24);
+    public static final double starSize = Units.inchesToMeters(24);
+    public static final double maxVel = 0.00001;
+    public static final double maxAccel = 0.0001;
   }
 
 }

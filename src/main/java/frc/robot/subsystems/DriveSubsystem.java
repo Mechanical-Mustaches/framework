@@ -11,7 +11,6 @@ import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.ctre.phoenix.unmanaged.Unmanaged;
-import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
@@ -51,7 +50,6 @@ import frc.robot.Constants.IDConstants;
 import frc.robot.Constants.PDPConstants;
 import frc.robot.Constants.PPConstants;
 import frc.robot.Constants.DriveConstants.ModulePosition;
-import frc.robot.utils.ModuleMap;
 import frc.robot.utils.ShuffleboardContent;
 import frc.robot.subsystems.Pigeon;
 
