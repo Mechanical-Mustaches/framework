@@ -50,20 +50,20 @@ public class Robot extends TimedRobot {
     
       DataLogManager.start();
     
-    PPSwerveControllerCommand.setLoggingCallbacks(
-      (PathPlannerTrajectory activeTrajectory) -> {
-        //Log current trajectory
-      },
-      (Pose2d targetPose) -> {
-        //Log target pose
-      },
-      (ChassisSpeeds setpointSpeed) -> {
-        // Log setpoint ChassisSpeeds
-      }, 
-      (Translation2d translationError, Rotation2d rotationError) -> {
-        //Log path following error
-      });
-
+    // PPSwerveControllerCommand.setLoggingCallbacks(
+    //   (PathPlannerTrajectory activeTrajectory) -> {
+    //     //Log current trajectory
+    //   },
+    //   (Pose2d targetPose) -> {
+    //     //Log target pose
+    //   },
+    //   (ChassisSpeeds setpointSpeed) -> {
+    //     // Log setpoint ChassisSpeeds
+    //   }, 
+    //   (Translation2d translationError, Rotation2d rotationError) -> {
+    //     //Log path following error
+    //   });
+    System.out.println("Can you see me");
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
     // autonomous chooser on the dashboard.

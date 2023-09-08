@@ -19,7 +19,7 @@ import com.ctre.phoenix.sensors.BasePigeon;
 
 public abstract class Pigeon extends SubsystemBase {
     private WPI_Pigeon2 bird = new WPI_Pigeon2(30); //See where it it plugged in on robot
-    private String name;
+   // private String name;
     private BasePigeon m_basePigeon;
 
     Pigeon2Configuration config = new Pigeon2Configuration();
