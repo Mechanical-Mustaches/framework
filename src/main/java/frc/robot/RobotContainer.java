@@ -11,18 +11,20 @@ import com.pathplanner.lib.PathPlannerTrajectory;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.DriveConstants.ModulePosition;
 import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.PPvariables;
 // import frc.robot.commands.auto.DriveForward;
 // import frc.robot.commands.auto.FiveBallAuto;
-
+import frc.robot.commands.swerve.JogDriveModule;
+import frc.robot.commands.swerve.JogTurnModule;
+import frc.robot.commands.swerve.PositionTurnModule;
 import frc.robot.commands.swerve.SetSwerveDrive;
 import frc.robot.commands.swerve.ToggleFieldOriented;
 import frc.robot.simulation.FieldSim;
@@ -52,8 +54,7 @@ public class RobotContainer {
   private final SendableChooser<Command> m_autoChooser = new SendableChooser<Command>();
 
   //private final Pigeon m_Pigeon = new Pigeon(Constants.Pigeon2Configuration(), "rio");
-  double maxVel = Constants.PPvariables.maxVel;
-  double maxAccel = Constants.PPvariables.maxAccel;
+ 
   
   // The driver's controller
 
@@ -81,7 +82,6 @@ public class RobotContainer {
     initializeAutoChooser();
     configureButtonBindings();
 
-   
     // sc.showAll();
     // Configure default commands
   // m_robotDrive.setDefaultCommand(
@@ -149,17 +149,10 @@ public class RobotContainer {
  
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //PathPlannerTrajectory testPath = PathPlanner.loadPath("stupidPath", new PathConstraints(1,1));
-    Shuffleboard.getTab("Autonomous").add(m_autoChooser);
-    PathPlannerTrajectory testPath = PathPlanner.loadPath("stupidPath", new PathConstraints(maxVel, maxAccel));//.andThen(m_robotDrive.setZeroNOW());
-
-    m_autoChooser.addOption("Test Path", testPath);
-
-    
-    return m_robotDrive.followTrajectoryCommand(m_autoChooser.getSelected(), true);
-    // Need to see why it is upset, but above all it works :DD 
-
-
+    PathPlannerTrajectory swerveTest = PathPlanner.loadPath("SwerveTest", new PathConstraints(4,3));
+       
+    return m_robotDrive.followTrajectoryCommand(swerveTest, true);
+  
   }
 
   // private void configureButtonBindings(){
