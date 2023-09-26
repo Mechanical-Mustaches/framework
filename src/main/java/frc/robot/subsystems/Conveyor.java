@@ -1,40 +1,46 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class Conveyor extends SubsystemBase {
-    //Instance Variables
-    private String name;
-    private CANSparkMax motor = new CANSparkMax(99, MotorType.kBrushless);
-    private Double speed;
-    RelativeEncoder encoder;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-    //Constructor
-    public Conveyor(String name, Double speed){
-        this.name = name;
-        this.speed = speed;
-    }
+/*
+ * Conveyor:
+ * Motor: 10
+ * Functions:
+ * Roll up 
+ * Reverse
+ */
 
-    //Starting Command
-    public void initialize(){
-        System.out.println(name + "is booting up");
-    }
-
-    //Movement
-    public void Forward(){
-        motor.set(speed);
-    }
-
-    public void Reverse(){
-        motor.set(-speed);
-    }
-
-    public void Stop(){
-        motor.set(0);
-    }
-
+public class Conveyor extends SubsystemBase{
+    //Private: ONLY THE CLASS IT
+    //Public: EVERYONE CAN SEE IT
+    private String name; 
+    private CANSparkMax fire = new CANSparkMax(10, MotorType.kBrushless);
     
+    //Double: decimal --> .0 .001 .001
+    //Int: whole number -->1, 34, 420
+    //Boolean: True or False
+    //Double, Ints, and Boolean ALL RETURN SOMETHING
+    private double fast;
 
+    //Voids: DON'T RETURN ANYTHING --> setting variables to things
+
+    public Conveyor(String name, double fast){
+        this.name = name;
+        this.fast = fast;
+    }
+
+    public void rollUp(){
+        fire.set(fast);
+    }
+
+    public void rev(){
+        fire.set(-fast);
+    }
+    
+    public void Stop(){
+        fire.set(0);
+    }
 }
