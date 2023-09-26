@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import frc.robot.utils.ModuleMap;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -79,8 +78,6 @@ public final class Constants {
         ModulePosition.BACK_LEFT, new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
         ModulePosition.BACK_RIGHT, new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
 
-    public static final SwerveDriveKinematics kSwerveKinematics = new SwerveDriveKinematics(
-        ModuleMap.orderedValues(kModuleTranslations, new Translation2d[0]));
 
     public static final boolean kGyroReversed = true;
 

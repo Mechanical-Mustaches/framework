@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
+System.out.println("hello world");
 
   }
 
@@ -65,11 +66,9 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    m_robotContainer.m_fieldSim.periodic();
 
     m_robotContainer.periodic();
 
-    m_robotContainer.m_robotDrive.throttleValue = m_robotContainer.getThrottle();
    
   }
 
@@ -138,7 +137,6 @@ SmartDashboard.putStringArray("g", g);
 
   @Override
   public void simulationPeriodic() {
-    m_robotContainer.m_fieldSim.periodic();
     m_robotContainer.simulationPeriodic();
   }
 
