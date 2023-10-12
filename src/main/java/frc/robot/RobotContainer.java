@@ -106,6 +106,10 @@ public class RobotContainer {
         JoystickButton g_TLines = new JoystickButton(leftJoystick, 8);
 
          
+        d_AButton.onTrue(getAutonomousCommand());
+
+
+
 
       // Driver Button Commands
         d_XButton.onTrue(new MoveLeft(turret));
