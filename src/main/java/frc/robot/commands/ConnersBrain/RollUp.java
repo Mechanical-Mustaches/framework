@@ -8,7 +8,15 @@ public class RollUp extends CommandBase{
 
     public RollUp(Conveyor conveyor){
         addRequirements(conveyor);
+        this.conveyor = conveyor;
+    }
 
+    public void execute(){ 
+        conveyor.rollUp();
+    }
+
+    public boolean isConveyorRolling(){
+        return is_ConveyorRolling;
     }
     
 }
