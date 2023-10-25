@@ -62,7 +62,7 @@ public class RobotContainer {
   private XboxController m_coDriverController = new XboxController(OIConstants.kCoDriverControllerPort);
 
   Conveyor conveyor = new Conveyor("conner", 0.2);
-  Flywheel flywheel = new Flywheel("g",0.2);
+  Flywheel flywheel = new Flywheel("g",0.7);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
